@@ -1,4 +1,4 @@
-<img width="100" align="right" alt="Multicall" src="https://user-images.githubusercontent.com/304108/55666937-320cb180-5888-11e9-907b-48ba66150523.png" />
+<img align="right" width="250" height="150" top="100" src="./assets/makerdao.png">
 
 # Multicall • [![tests](https://github.com/mds1/multicall/actions/workflows/tests.yml/badge.svg)](https://github.com/mds1/multicall/actions/workflows/tests.yml) ![GitHub](https://img.shields.io/github/license/mds1/multicall)
 
