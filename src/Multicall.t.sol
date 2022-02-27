@@ -1,5 +1,5 @@
-pragma solidity >=0.5.0;
-pragma experimental ABIEncoderV2;
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.11;
 
 import "ds-test/test.sol";
 import "./Multicall.sol";
