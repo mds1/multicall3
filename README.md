@@ -37,6 +37,18 @@ Multicall2 is the same as Multicall, but provides addition functions that allow 
 | Görli   | [0x5ba1e12693dc8f9c48aad8770482f4739beed696](https://goerli.etherscan.io/address/0x5ba1e12693dc8f9c48aad8770482f4739beed696#contracts) |
 | Ropsten | [0x5ba1e12693dc8f9c48aad8770482f4739beed696](https://ropsten.etherscan.io/address/0x5ba1e12693dc8f9c48aad8770482f4739beed696#code) |
 
+### Multicall3 Contract Addresses
+
+Multicall3 dramatically simplifies the Multicall interface by allowing the user to specify on an individual call basis whether or not it is required to succeed.
+
+| Chain   | Address |
+| ------- | ------- |
+| Mainnet |  |
+| Kovan   |  |
+| Rinkeby |  |
+| Görli   |  |
+| Ropsten |  |
+
 ### Third-Party Deployments
 
 The following addresses have been submitted by external contributors and have not been vetted by Multicall maintainers.
