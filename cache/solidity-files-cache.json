@@ -220,8 +220,8 @@
       }
     },
     "/Users/andreasbigger/projects/multicall/src/Multicall2.sol": {
-      "lastModificationDate": 1645986482345,
-      "contentHash": "13bef6a0478a06062b70dacbdf0fe507",
+      "lastModificationDate": 1645988569521,
+      "contentHash": "effb9a21598d8122ab31cea56b4ca529",
       "sourceName": "src/Multicall2.sol",
       "solcConfig": {
         "settings": {
@@ -330,8 +330,8 @@
       }
     },
     "/Users/andreasbigger/projects/multicall/src/test/Multicall2.t.sol": {
-      "lastModificationDate": 1645986940004,
-      "contentHash": "8ff25a55af704aa2f24e30492313044b",
+      "lastModificationDate": 1645988961242,
+      "contentHash": "cefd6d365cd56332e89c6666d2bdac86",
       "sourceName": "src/test/Multicall2.t.sol",
       "solcConfig": {
         "settings": {
