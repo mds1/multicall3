@@ -254,8 +254,8 @@
       }
     },
     "/Users/andreasbigger/projects/multicall/src/Multicall3.sol": {
-      "lastModificationDate": 1645986520770,
-      "contentHash": "c8f618c47eb49e1e3effca72fa93bef0",
+      "lastModificationDate": 1646011499057,
+      "contentHash": "9198e60e126d9374cf0c2ebb4f67a298",
       "sourceName": "src/Multicall3.sol",
       "solcConfig": {
         "settings": {
@@ -330,8 +330,8 @@
       }
     },
     "/Users/andreasbigger/projects/multicall/src/test/Multicall2.t.sol": {
-      "lastModificationDate": 1645988961242,
-      "contentHash": "cefd6d365cd56332e89c6666d2bdac86",
+      "lastModificationDate": 1645988974907,
+      "contentHash": "b26460595e53de5ff9c8b2fc7d940680",
       "sourceName": "src/test/Multicall2.t.sol",
       "solcConfig": {
         "settings": {
@@ -372,8 +372,8 @@
       }
     },
     "/Users/andreasbigger/projects/multicall/src/test/Multicall3.t.sol": {
-      "lastModificationDate": 1645986954589,
-      "contentHash": "85a8ed47ded1c9c69bb8af985ac56514",
+      "lastModificationDate": 1646011503549,
+      "contentHash": "acc35c8312f0c3a8b2431d8f20c915ae",
       "sourceName": "src/test/Multicall3.t.sol",
       "solcConfig": {
         "settings": {
