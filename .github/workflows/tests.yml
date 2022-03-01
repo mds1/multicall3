@@ -1,6 +1,10 @@
 name: Tests
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
 
 jobs:
   tests:
@@ -8,10 +12,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+        with:
+          submodules: recursive
+
       - name: Install Foundry
         uses: onbjerg/foundry-toolchain@v1
         with:
           version: nightly
+
       - name: Run Tests
         run: FOUNDRY_PROFILE=ci forge test
