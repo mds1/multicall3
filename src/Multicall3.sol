@@ -17,8 +17,8 @@ contract Multicall3 {
 
     struct Call3 {
         address target;
+        bool allowFailure;
         bytes callData;
-        bool requireSuccess;
     }
 
     struct Result {
@@ -34,7 +34,7 @@ contract Multicall3 {
             (bool success, bytes memory ret) = calls[i].target.call(calls[i].callData);
             require(success, "Multicall aggregate: call failed");
             returnData[i] = ret;
-            unchecked { i++; }
+            unchecked { ++i; }
         }
     }
 
@@ -50,7 +50,7 @@ contract Multicall3 {
 
             returnData[i] = Result(success, ret);
 
-            unchecked { i++; }
+            unchecked { ++i; }
         }
     }
 
@@ -64,16 +64,21 @@ contract Multicall3 {
         (blockNumber, blockHash, returnData) = tryBlockAndAggregate(true, calls);
     }
 
-    function aggregate3(Call3[] memory calls) public returns (uint256 blockNumber, bytes32 blockHash, Result[] memory returnData) {
+    function aggregate3(Call3[] calldata calls) public returns (uint256 blockNumber, bytes32 blockHash, Result[] memory returnData) {
         blockNumber = block.number;
         blockHash = blockhash(block.number);
         returnData = new Result[](calls.length);
         uint256 length = calls.length;
         for (uint256 i = 0; i < length;) {
             (bool success, bytes memory ret) = calls[i].target.call(calls[i].callData);
-            require(!calls[i].requireSuccess || success, "Multicall3 aggregate3: call failed");
+            assembly {
+                let allowFailure := mload(add(calldataload(calls.offset), mul(i, 0x20)))
+                if iszero(or(allowFailure, success)) {
+                    revert(0, "CALL_FAILED")
+                }
+            }
             returnData[i] = Result(success, ret);
-            unchecked { i++; }
+            unchecked { ++i; }
         }
     }
 
@@ -106,6 +111,8 @@ contract Multicall3 {
     }
 
     function getLastBlockHash() public view returns (bytes32 blockHash) {
-        blockHash = blockhash(block.number - 1);
+        unchecked {
+            blockHash = blockhash(block.number - 1);
+        }
     }
 }
