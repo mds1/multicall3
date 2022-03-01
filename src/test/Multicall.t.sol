@@ -51,7 +51,7 @@ contract MulticallTest is DSTestPlus {
 
   function testGetLastBlockHash() public {
     // Prevent arithmetic underflow on the genesis block
-    if(block.number == 0) return;
+    if (block.number == 0) return;
     assert(blockhash(block.number - 1) == multicall.getLastBlockHash());
   }
 
