@@ -1,3 +1,0 @@
-@ds=lib/ds-test/src/
-@solmate=lib/solmate/src/
-@std=lib/forge-std/src/
