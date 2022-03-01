@@ -30,7 +30,7 @@ contract Multicall3 {
         blockNumber = block.number;
         uint256 length = calls.length;
         returnData = new bytes[](length);
-        for(uint256 i = 0; i < length;) {
+        for (uint256 i = 0; i < length;) {
             (bool success, bytes memory ret) = calls[i].target.call(calls[i].callData);
             require(success, "Multicall aggregate: call failed");
             returnData[i] = ret;
@@ -41,7 +41,7 @@ contract Multicall3 {
     function tryAggregate(bool requireSuccess, Call[] memory calls) public returns (Result[] memory returnData) {
         uint256 length = calls.length;
         returnData = new Result[](length);
-        for(uint256 i = 0; i < length;) {
+        for (uint256 i = 0; i < length;) {
             (bool success, bytes memory ret) = calls[i].target.call(calls[i].callData);
 
             if (requireSuccess) {
@@ -69,7 +69,7 @@ contract Multicall3 {
         blockHash = blockhash(block.number);
         returnData = new Result[](calls.length);
         uint256 length = calls.length;
-        for(uint256 i = 0; i < length;) {
+        for (uint256 i = 0; i < length;) {
             (bool success, bytes memory ret) = calls[i].target.call(calls[i].callData);
             require(!calls[i].requireSuccess || success, "Multicall3 aggregate3: call failed");
             returnData[i] = Result(success, ret);
