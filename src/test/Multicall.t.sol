@@ -22,8 +22,8 @@ contract MulticallTest is DSTestPlus {
     Multicall.Call[] memory calls = new Multicall.Call[](1);
     calls[0] = Multicall.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
     (uint256 blockNumber, bytes[] memory returnData) = multicall.aggregate(calls);
-    assert(blockNumber == block.number);
-    assert(keccak256(returnData[0]) == keccak256(abi.encodePacked(blockhash(block.number))));
+    assertEq(blockNumber, block.number);
+    assertEq(keccak256(returnData[0]), keccak256(abi.encodePacked(blockhash(block.number))));
   }
 
   function testUnsuccessulAggregation() public {
@@ -42,32 +42,32 @@ contract MulticallTest is DSTestPlus {
   /// >>>>>>>>>>>>>>>>>>>>>>  HELPER TESTS  <<<<<<<<<<<<<<<<<<<<<<< ///
 
   function testGetEthBalance(address addr) public {
-    assert(addr.balance == multicall.getEthBalance(addr));
+    assertEq(addr.balance, multicall.getEthBalance(addr));
   }
 
   function testGetBlockHash(uint256 blockNumber) public {
-    assert(blockhash(blockNumber) == multicall.getBlockHash(blockNumber));
+    assertEq(blockhash(blockNumber), multicall.getBlockHash(blockNumber));
   }
 
   function testGetLastBlockHash() public {
     // Prevent arithmetic underflow on the genesis block
     if (block.number == 0) return;
-    assert(blockhash(block.number - 1) == multicall.getLastBlockHash());
+    assertEq(blockhash(block.number - 1), multicall.getLastBlockHash());
   }
 
   function testGetCurrentBlockTimestamp() public {
-    assert(block.timestamp == multicall.getCurrentBlockTimestamp());
+    assertEq(block.timestamp, multicall.getCurrentBlockTimestamp());
   }
 
   function testGetCurrentBlockDifficulty() public {
-    assert(block.difficulty == multicall.getCurrentBlockDifficulty());
+    assertEq(block.difficulty, multicall.getCurrentBlockDifficulty());
   }
 
   function testGetCurrentBlockGasLimit() public {
-    assert(block.gaslimit == multicall.getCurrentBlockGasLimit());
+    assertEq(block.gaslimit, multicall.getCurrentBlockGasLimit());
   }
 
   function testGetCurrentBlockCoinbase() public {
-    assert(block.coinbase == multicall.getCurrentBlockCoinbase());
+    assertEq(block.coinbase, multicall.getCurrentBlockCoinbase());
   }
 }
