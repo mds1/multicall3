@@ -42,9 +42,9 @@ contract Multicall3Test is DSTestPlus {
     calls[0] = Multicall3.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
     calls[1] = Multicall3.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
     (Multicall3.Result[] memory returnData) = multicall.tryAggregate(false, calls);
-    assert(returnData[0].success);
+    assertTrue(returnData[0].success);
     assertEq(keccak256(returnData[0].returnData), keccak256(abi.encodePacked(blockhash(block.number))));
-    assert(!returnData[1].success);
+    assertTrue(!returnData[1].success);
   }
 
   function testTryAggregateUnsuccessful() public {
@@ -64,9 +64,9 @@ contract Multicall3Test is DSTestPlus {
     (uint256 blockNumber, bytes32 blockHash, Multicall3.Result[] memory returnData) = multicall.tryBlockAndAggregate(false, calls);
     assertEq(blockNumber, block.number);
     assertEq(blockHash, blockhash(block.number));
-    assert(returnData[0].success);
+    assertTrue(returnData[0].success);
     assertEq(keccak256(returnData[0].returnData), keccak256(abi.encodePacked(blockhash(block.number))));
-    assert(!returnData[1].success);
+    assertTrue(!returnData[1].success);
   }
 
   function testTryBlockAndAggregateUnsuccessful() public {
@@ -94,9 +94,9 @@ contract Multicall3Test is DSTestPlus {
     (uint256 blockNumber, bytes32 blockHash, Multicall3.Result[] memory returnData) = multicall.aggregate3(calls);
     assertEq(blockNumber, block.number);
     assertEq(blockHash, blockhash(block.number));
-    assert(returnData[0].success);
+    assertTrue(returnData[0].success);
     assertEq(keccak256(returnData[0].returnData), keccak256(abi.encodePacked(blockhash(block.number))));
-    assert(!returnData[1].success);
+    assertTrue(!returnData[1].success);
   }
 
   function testAggregate3Unsuccessful() public {
