@@ -1,8 +1,10 @@
-<img align="right" width="250" height="150" top="100" src="./assets/makerdao.png">
+<img align="right" width="180" height="100" top="100" src="./assets/makerdao.png">
 
 # Multicall • [![tests](https://github.com/mds1/multicall/actions/workflows/tests.yml/badge.svg)](https://github.com/mds1/multicall/actions/workflows/tests.yml) ![GitHub](https://img.shields.io/github/license/mds1/multicall)
 
 Multicall aggregates results from multiple contract constant function calls.
+
+<br />
 
 This reduces the number of separate JSON RPC requests that need to be sent
 (especially useful if using remote nodes like Infura), while also providing the
