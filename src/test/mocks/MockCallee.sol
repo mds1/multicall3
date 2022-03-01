@@ -16,9 +16,8 @@ contract MockCallee {
     blockHash = blockhash(blockNumber);
   }
 
-  /// @notice Returns if successful
-  function thisMethodReverts() public view returns (bool success) {
+  /// @notice Reverts o______O
+  function thisMethodReverts() public view {
     revert Unsuccessful();
-    success = true;
   }
 }
