@@ -14,6 +14,8 @@ out-of-date node).
 This smart contract is intended to be used with
 [Multicall.js](https://github.com/makerdao/multicall.js) in front-end dapps.
 
+Deployed [`Multicall`](https://github.com/mds1/multicall/blob/master/src/Multicall.sol) and [`Multicall2`](https://github.com/mds1/multicall/blob/master/src/Multicall2.sol) contracts can be found in commit [`bb309a9`](https://github.com/mds1/multicall/commit/bb309a985379c40bdbbc9a8613501732ed98bb9c) or earlier. Later (non-deployed) versions of the contracts have been upgraded to newer versions of Solidity.
+
 ### Multicall Contract Addresses
 | Chain   | Address |
 | ------- | ------- |

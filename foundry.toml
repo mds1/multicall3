@@ -5,7 +5,7 @@
 [default]
 ## Sets the concrete solc version to use
 ## This overrides the `auto_detect_solc` value
-solc_version = '0.8.11'
+solc_version = '0.8.12'
 auto_detect_solc = false
 ## Increase optimizer_runs since we expect multicalls to be highly queried
 optimizer = true

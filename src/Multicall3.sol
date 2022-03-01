@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.11;
+pragma solidity 0.8.12;
 
 /// @title Multicall3
 /// @notice Aggregate results from multiple read-only function calls
