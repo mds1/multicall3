@@ -34,7 +34,7 @@ contract Multicall3 {
             (bool success, bytes memory ret) = calls[i].target.call(calls[i].callData);
             require(success, "Multicall aggregate: call failed");
             returnData[i] = ret;
-            unchecked { i++ }
+            unchecked { i++; }
         }
     }
 
@@ -50,7 +50,7 @@ contract Multicall3 {
 
             returnData[i] = Result(success, ret);
 
-            unchecked { i++ }
+            unchecked { i++; }
         }
     }
 
@@ -73,7 +73,7 @@ contract Multicall3 {
             (bool success, bytes memory ret) = calls[i].target.call(calls[i].callData);
             require(!calls[i].requireSuccess || success, "Multicall3 aggregate3: call failed");
             returnData[i] = Result(success, ret);
-            unchecked { i++ }
+            unchecked { i++; }
         }
     }
 

@@ -9,7 +9,7 @@
         "settings": {
           "optimizer": {
             "enabled": true,
-            "runs": 200
+            "runs": 10000
           },
           "outputSelection": {
             "*": {
@@ -31,7 +31,7 @@
       "versionRequirement": ">=0.4.23",
       "artifacts": {
         "DSTest": {
-          "0.8.11+commit.d7f03943.Darwin.appleclang": "test.sol/DSTest.json"
+          "0.8.12+commit.f00d7308.Darwin.appleclang": "test.sol/DSTest.json"
         }
       }
     },
@@ -43,7 +43,7 @@
         "settings": {
           "optimizer": {
             "enabled": true,
-            "runs": 200
+            "runs": 10000
           },
           "outputSelection": {
             "*": {
@@ -65,7 +65,7 @@
       "versionRequirement": ">=0.6.0",
       "artifacts": {
         "Vm": {
-          "0.8.11+commit.d7f03943.Darwin.appleclang": "Vm.sol/Vm.json"
+          "0.8.12+commit.f00d7308.Darwin.appleclang": "Vm.sol/Vm.json"
         }
       }
     },
@@ -77,7 +77,7 @@
         "settings": {
           "optimizer": {
             "enabled": true,
-            "runs": 200
+            "runs": 10000
           },
           "outputSelection": {
             "*": {
@@ -101,13 +101,13 @@
       "versionRequirement": ">=0.6.0, <0.9.0",
       "artifacts": {
         "stdCheats": {
-          "0.8.11+commit.d7f03943.Darwin.appleclang": "stdlib.sol/stdCheats.json"
+          "0.8.12+commit.f00d7308.Darwin.appleclang": "stdlib.sol/stdCheats.json"
         },
         "stdError": {
-          "0.8.11+commit.d7f03943.Darwin.appleclang": "stdlib.sol/stdError.json"
+          "0.8.12+commit.f00d7308.Darwin.appleclang": "stdlib.sol/stdError.json"
         },
         "stdStorage": {
-          "0.8.11+commit.d7f03943.Darwin.appleclang": "stdlib.sol/stdStorage.json"
+          "0.8.12+commit.f00d7308.Darwin.appleclang": "stdlib.sol/stdStorage.json"
         }
       }
     },
@@ -119,7 +119,7 @@
         "settings": {
           "optimizer": {
             "enabled": true,
-            "runs": 200
+            "runs": 10000
           },
           "outputSelection": {
             "*": {
@@ -141,19 +141,19 @@
       "versionRequirement": ">=0.8.0",
       "artifacts": {
         "ERC20": {
-          "0.8.11+commit.d7f03943.Darwin.appleclang": "ERC20.sol/ERC20.json"
+          "0.8.12+commit.f00d7308.Darwin.appleclang": "ERC20.sol/ERC20.json"
         }
       }
     },
     "/Users/andreasbigger/projects/multicall/src/Multicall.sol": {
-      "lastModificationDate": 1645986719458,
-      "contentHash": "e81e8cb6490109d785bc1f67fccada67",
+      "lastModificationDate": 1646092864113,
+      "contentHash": "75878c91e49026dea36f77fe99eada15",
       "sourceName": "src/Multicall.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
             "enabled": true,
-            "runs": 200
+            "runs": 10000
           },
           "outputSelection": {
             "*": {
@@ -172,62 +172,22 @@
         }
       },
       "imports": [],
-      "versionRequirement": "=0.8.11",
+      "versionRequirement": "=0.8.12",
       "artifacts": {
         "Multicall": {
-          "0.8.11+commit.d7f03943.Darwin.appleclang": "Multicall.sol/Multicall.json"
-        }
-      }
-    },
-    "/Users/andreasbigger/projects/multicall/src/Multicall.t.sol": {
-      "lastModificationDate": 1645986485416,
-      "contentHash": "9ab6425956199e8e007b95219f4ca616",
-      "sourceName": "src/Multicall.t.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers"
-              ]
-            }
-          },
-          "evmVersion": "london"
-        }
-      },
-      "imports": [
-        "lib/ds-test/src/test.sol",
-        "src/Multicall.sol"
-      ],
-      "versionRequirement": "=0.8.11",
-      "artifacts": {
-        "MulticallTest": {
-          "0.8.11+commit.d7f03943.Darwin.appleclang": "Multicall.t.sol/MulticallTest.json"
-        },
-        "Store": {
-          "0.8.11+commit.d7f03943.Darwin.appleclang": "Multicall.t.sol/Store.json"
+          "0.8.12+commit.f00d7308.Darwin.appleclang": "Multicall.sol/Multicall.json"
         }
       }
     },
     "/Users/andreasbigger/projects/multicall/src/Multicall2.sol": {
-      "lastModificationDate": 1645988569521,
-      "contentHash": "effb9a21598d8122ab31cea56b4ca529",
+      "lastModificationDate": 1646092919621,
+      "contentHash": "95a2000f0c92067dd18d4c0fe11d9ee4",
       "sourceName": "src/Multicall2.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
             "enabled": true,
-            "runs": 200
+            "runs": 10000
           },
           "outputSelection": {
             "*": {
@@ -246,22 +206,22 @@
         }
       },
       "imports": [],
-      "versionRequirement": "=0.8.11",
+      "versionRequirement": "=0.8.12",
       "artifacts": {
         "Multicall2": {
-          "0.8.11+commit.d7f03943.Darwin.appleclang": "Multicall2.sol/Multicall2.json"
+          "0.8.12+commit.f00d7308.Darwin.appleclang": "Multicall2.sol/Multicall2.json"
         }
       }
     },
     "/Users/andreasbigger/projects/multicall/src/Multicall3.sol": {
-      "lastModificationDate": 1646011499057,
-      "contentHash": "9198e60e126d9374cf0c2ebb4f67a298",
+      "lastModificationDate": 1646093677828,
+      "contentHash": "19c008e8bd5a7c7601f42cbc7fdb55b8",
       "sourceName": "src/Multicall3.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
             "enabled": true,
-            "runs": 200
+            "runs": 10000
           },
           "outputSelection": {
             "*": {
@@ -280,22 +240,22 @@
         }
       },
       "imports": [],
-      "versionRequirement": "=0.8.11",
+      "versionRequirement": "=0.8.12",
       "artifacts": {
         "Multicall3": {
-          "0.8.11+commit.d7f03943.Darwin.appleclang": "Multicall3.sol/Multicall3.json"
+          "0.8.12+commit.f00d7308.Darwin.appleclang": "Multicall3.sol/Multicall3.json"
         }
       }
     },
     "/Users/andreasbigger/projects/multicall/src/test/Multicall.t.sol": {
-      "lastModificationDate": 1645987138218,
-      "contentHash": "2777993876996556361e59ab97cbed8c",
+      "lastModificationDate": 1646093658410,
+      "contentHash": "55c8b2c75aa8f48413919f084ab77eb4",
       "sourceName": "src/test/Multicall.t.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
             "enabled": true,
-            "runs": 200
+            "runs": 10000
           },
           "outputSelection": {
             "*": {
@@ -322,22 +282,22 @@
         "src/test/mocks/MockCallee.sol",
         "src/test/utils/DSTestPlus.sol"
       ],
-      "versionRequirement": "=0.8.11",
+      "versionRequirement": "=0.8.12",
       "artifacts": {
         "MulticallTest": {
-          "0.8.11+commit.d7f03943.Darwin.appleclang": "Multicall.t.sol/MulticallTest.json"
+          "0.8.12+commit.f00d7308.Darwin.appleclang": "Multicall.t.sol/MulticallTest.json"
         }
       }
     },
     "/Users/andreasbigger/projects/multicall/src/test/Multicall2.t.sol": {
-      "lastModificationDate": 1645988974907,
-      "contentHash": "b26460595e53de5ff9c8b2fc7d940680",
+      "lastModificationDate": 1646093806639,
+      "contentHash": "07091d3a0325fe40f7329ac712c50a70",
       "sourceName": "src/test/Multicall2.t.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
             "enabled": true,
-            "runs": 200
+            "runs": 10000
           },
           "outputSelection": {
             "*": {
@@ -364,22 +324,22 @@
         "src/test/mocks/MockCallee.sol",
         "src/test/utils/DSTestPlus.sol"
       ],
-      "versionRequirement": "=0.8.11",
+      "versionRequirement": "=0.8.12",
       "artifacts": {
         "Multicall2Test": {
-          "0.8.11+commit.d7f03943.Darwin.appleclang": "Multicall2.t.sol/Multicall2Test.json"
+          "0.8.12+commit.f00d7308.Darwin.appleclang": "Multicall2.t.sol/Multicall2Test.json"
         }
       }
     },
     "/Users/andreasbigger/projects/multicall/src/test/Multicall3.t.sol": {
-      "lastModificationDate": 1646011503549,
-      "contentHash": "acc35c8312f0c3a8b2431d8f20c915ae",
+      "lastModificationDate": 1646094045743,
+      "contentHash": "c00823c1d60160684098aa29b8c69b3e",
       "sourceName": "src/test/Multicall3.t.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
             "enabled": true,
-            "runs": 200
+            "runs": 10000
           },
           "outputSelection": {
             "*": {
@@ -406,22 +366,22 @@
         "src/test/mocks/MockCallee.sol",
         "src/test/utils/DSTestPlus.sol"
       ],
-      "versionRequirement": "=0.8.11",
+      "versionRequirement": "=0.8.12",
       "artifacts": {
         "Multicall3Test": {
-          "0.8.11+commit.d7f03943.Darwin.appleclang": "Multicall3.t.sol/Multicall3Test.json"
+          "0.8.12+commit.f00d7308.Darwin.appleclang": "Multicall3.t.sol/Multicall3Test.json"
         }
       }
     },
     "/Users/andreasbigger/projects/multicall/src/test/mocks/MockCallee.sol": {
-      "lastModificationDate": 1645986651941,
-      "contentHash": "8dd9a1b04a5e146ca198062205482534",
+      "lastModificationDate": 1646092940960,
+      "contentHash": "014c860c4402209ab72f8a08e169e715",
       "sourceName": "src/test/mocks/MockCallee.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
             "enabled": true,
-            "runs": 200
+            "runs": 10000
           },
           "outputSelection": {
             "*": {
@@ -440,22 +400,22 @@
         }
       },
       "imports": [],
-      "versionRequirement": "=0.8.11",
+      "versionRequirement": "=0.8.12",
       "artifacts": {
         "MockCallee": {
-          "0.8.11+commit.d7f03943.Darwin.appleclang": "MockCallee.sol/MockCallee.json"
+          "0.8.12+commit.f00d7308.Darwin.appleclang": "MockCallee.sol/MockCallee.json"
         }
       }
     },
     "/Users/andreasbigger/projects/multicall/src/test/utils/DSTestPlus.sol": {
-      "lastModificationDate": 1645986646798,
-      "contentHash": "7b612188cdc57421eb38d1c5ccb15268",
+      "lastModificationDate": 1646092936137,
+      "contentHash": "46fd2a65d0d61b4d707a30fb4ded2878",
       "sourceName": "src/test/utils/DSTestPlus.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
             "enabled": true,
-            "runs": 200
+            "runs": 10000
           },
           "outputSelection": {
             "*": {
@@ -479,10 +439,10 @@
         "lib/forge-std/src/stdlib.sol",
         "lib/solmate/src/tokens/ERC20.sol"
       ],
-      "versionRequirement": "=0.8.11",
+      "versionRequirement": "=0.8.12",
       "artifacts": {
         "DSTestPlus": {
-          "0.8.11+commit.d7f03943.Darwin.appleclang": "DSTestPlus.sol/DSTestPlus.json"
+          "0.8.12+commit.f00d7308.Darwin.appleclang": "DSTestPlus.sol/DSTestPlus.json"
         }
       }
     }

@@ -20,14 +20,8 @@ contract MulticallTest is DSTestPlus {
   function testAggregation() public {
     // Test successful call
     Multicall.Call[] memory calls = new Multicall.Call[](1);
-    calls[0] = Multicall.Call(
-        address(callee),
-        abi.encodeWithSignature("getBlockHash(uint256)", block.number)
-    );
-    (
-        uint256 blockNumber,
-        bytes[] memory returnData
-    ) = multicall.aggregate(calls);
+    calls[0] = Multicall.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
+    (uint256 blockNumber, bytes[] memory returnData) = multicall.aggregate(calls);
     assert(blockNumber == block.number);
     assert(keccak256(returnData[0]) == keccak256(abi.encodePacked(blockhash(block.number))));
   }
@@ -39,15 +33,10 @@ contract MulticallTest is DSTestPlus {
         address(callee),
         abi.encodeWithSignature("getBlockHash(uint256)", block.number)
     );
-    calls[1] = Multicall.Call(
-        address(callee),
-        abi.encodeWithSignature("thisMethodReverts()")
+    calls[1] = Multicall.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()")
     );
     vm.expectRevert(bytes(""));
-    (
-        uint256 blockNumber,
-        bytes[] memory returnData
-    ) = multicall.aggregate(calls);
+    multicall.aggregate(calls);
   }
 
   /// >>>>>>>>>>>>>>>>>>>>>>  HELPER TESTS  <<<<<<<<<<<<<<<<<<<<<<< ///
