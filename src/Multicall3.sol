@@ -71,12 +71,7 @@ contract Multicall3 {
         uint256 length = calls.length;
         for (uint256 i = 0; i < length;) {
             (bool success, bytes memory ret) = calls[i].target.call(calls[i].callData);
-            assembly {
-                let allowFailure := mload(add(calldataload(calls.offset), mul(i, 0x20)))
-                if iszero(or(allowFailure, success)) {
-                    revert(0, "CALL_FAILED")
-                }
-            }
+            require(calls[i].allowFailure || success, "Multicall3 aggregate3 failed");
             returnData[i] = Result(success, ret);
             unchecked { ++i; }
         }
