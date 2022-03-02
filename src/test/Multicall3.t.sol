@@ -31,7 +31,7 @@ contract Multicall3Test is DSTestPlus {
     Multicall3.Call[] memory calls = new Multicall3.Call[](2);
     calls[0] = Multicall3.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
     calls[1] = Multicall3.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
-    vm.expectRevert(bytes("Multicall aggregate: call failed"));
+    vm.expectRevert(bytes("Multicall3: aggregate failed"));
     multicall.aggregate(calls);
   }
 
@@ -51,7 +51,7 @@ contract Multicall3Test is DSTestPlus {
     Multicall3.Call[] memory calls = new Multicall3.Call[](2);
     calls[0] = Multicall3.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
     calls[1] = Multicall3.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
-    vm.expectRevert(bytes("Multicall2 aggregate: call failed"));
+    vm.expectRevert(bytes("Multicall3: tryAggregate failed"));
     multicall.tryAggregate(true, calls);
   }
 
@@ -73,7 +73,7 @@ contract Multicall3Test is DSTestPlus {
     Multicall3.Call[] memory calls = new Multicall3.Call[](2);
     calls[0] = Multicall3.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
     calls[1] = Multicall3.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
-    vm.expectRevert(bytes("Multicall2 aggregate: call failed"));
+    vm.expectRevert(bytes("Multicall3: tryAggregate failed"));
     multicall.tryBlockAndAggregate(true, calls);
   }
 
@@ -81,7 +81,7 @@ contract Multicall3Test is DSTestPlus {
     Multicall3.Call[] memory calls = new Multicall3.Call[](2);
     calls[0] = Multicall3.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
     calls[1] = Multicall3.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
-    vm.expectRevert(bytes("Multicall2 aggregate: call failed"));
+    vm.expectRevert(bytes("Multicall3: tryAggregate failed"));
     multicall.blockAndAggregate(calls);
   }
 
@@ -103,7 +103,7 @@ contract Multicall3Test is DSTestPlus {
     Multicall3.Call3[] memory calls = new Multicall3.Call3[](2);
     calls[0] = Multicall3.Call3(address(callee), false, abi.encodeWithSignature("getBlockHash(uint256)", block.number));
     calls[1] = Multicall3.Call3(address(callee), false, abi.encodeWithSignature("thisMethodReverts()"));
-    vm.expectRevert(bytes("Multicall3 aggregate3 failed"));
+    vm.expectRevert(bytes("Multicall3: aggregate3 failed"));
     multicall.aggregate3(calls);
   }
 

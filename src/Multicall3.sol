@@ -32,7 +32,7 @@ contract Multicall3 {
         returnData = new bytes[](length);
         for (uint256 i = 0; i < length;) {
             (bool success, bytes memory ret) = calls[i].target.call(calls[i].callData);
-            require(success, "Multicall aggregate: call failed");
+            require(success, "Multicall3: aggregate failed");
             returnData[i] = ret;
             unchecked { ++i; }
         }
@@ -43,13 +43,8 @@ contract Multicall3 {
         returnData = new Result[](length);
         for (uint256 i = 0; i < length;) {
             (bool success, bytes memory ret) = calls[i].target.call(calls[i].callData);
-
-            if (requireSuccess) {
-                require(success, "Multicall2 aggregate: call failed");
-            }
-
+            if (requireSuccess) require(success, "Multicall3: tryAggregate failed");
             returnData[i] = Result(success, ret);
-
             unchecked { ++i; }
         }
     }
@@ -71,7 +66,7 @@ contract Multicall3 {
         uint256 length = calls.length;
         for (uint256 i = 0; i < length;) {
             (bool success, bytes memory ret) = calls[i].target.call(calls[i].callData);
-            require(calls[i].allowFailure || success, "Multicall3 aggregate3 failed");
+            require(calls[i].allowFailure || success, "Multicall3: aggregate3 failed");
             returnData[i] = Result(success, ret);
             unchecked { ++i; }
         }
