@@ -17,7 +17,7 @@ contract MockCallee {
   }
 
   /// @notice Reverts o______O
-  function thisMethodReverts() public view {
+  function thisMethodReverts() public pure {
     revert Unsuccessful();
   }
 }
