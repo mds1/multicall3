@@ -30,10 +30,12 @@ contract Multicall3 {
         blockNumber = block.number;
         uint256 length = calls.length;
         returnData = new bytes[](length);
+        Call calldata call;
         for (uint256 i = 0; i < length;) {
-            (bool success, bytes memory ret) = calls[i].target.call(calls[i].callData);
+            bool success;
+            call = calls[i];
+            (success, returnData[i]) = call.target.call(call.callData);
             require(success, "Multicall3: aggregate failed");
-            returnData[i] = ret;
             unchecked { ++i; }
         }
     }
@@ -41,10 +43,12 @@ contract Multicall3 {
     function tryAggregate(bool requireSuccess, Call[] calldata calls) public returns (Result[] memory returnData) {
         uint256 length = calls.length;
         returnData = new Result[](length);
+        Call calldata call;
         for (uint256 i = 0; i < length;) {
-            (bool success, bytes memory ret) = calls[i].target.call(calls[i].callData);
-            if (requireSuccess) require(success, "Multicall3: tryAggregate failed");
-            returnData[i] = Result(success, ret);
+            Result memory result = returnData[i];
+            call = calls[i];
+            (result.success, result.returnData) = call.target.call(call.callData);
+            if (requireSuccess) require(result.success, "Multicall3: tryAggregate failed");
             unchecked { ++i; }
         }
     }
@@ -64,10 +68,12 @@ contract Multicall3 {
         blockHash = blockhash(block.number);
         returnData = new Result[](calls.length);
         uint256 length = calls.length;
+        Call3 calldata call;
         for (uint256 i = 0; i < length;) {
-            (bool success, bytes memory ret) = calls[i].target.call(calls[i].callData);
-            require(calls[i].allowFailure || success, "Multicall3: aggregate3 failed");
-            returnData[i] = Result(success, ret);
+            Result memory result = returnData[i];
+            call = calls[i];
+            (result.success, result.returnData) = call.target.call(call.callData);
+            require(call.allowFailure || result.success, "Multicall3: aggregate3 failed");
             unchecked { ++i; }
         }
     }
