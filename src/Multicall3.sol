@@ -36,7 +36,7 @@ contract Multicall3 {
     /// @notice Backwards-compatible call aggregation with Multicall
     /// @param calls An array of Call structs
     /// @return blockNumber The block number where the calls were executed
-    /// @return returnData An array of Result structs
+    /// @return returnData An array of bytes containing the responses
     function aggregate(Call[] calldata calls) public payable returns (uint256 blockNumber, bytes[] memory returnData) {
         blockNumber = block.number;
         uint256 length = calls.length;
