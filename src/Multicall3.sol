@@ -84,7 +84,7 @@ contract Multicall3 {
     /// @notice Backwards-compatible with Multicall2
     /// @notice Aggregate calls and allow failures using tryAggregate
     /// @param calls An array of Call structs
-        /// @return blockNumber The block number where the calls were executed
+    /// @return blockNumber The block number where the calls were executed
     /// @return blockHash The hash of the block where the calls were executed
     /// @return returnData An array of Result structs
     function blockAndAggregate(Call[] calldata calls) public payable returns (uint256 blockNumber, bytes32 blockHash, Result[] memory returnData) {
