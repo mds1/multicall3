@@ -22,7 +22,8 @@ contract MockCallee {
   }
 
   /// @notice Accepts a value
-  function sendBackValue() public payable {
-    msg.sender.call{value: msg.value}("");
+  function sendBackValue(address target) public payable {
+    (bool ok, ) = target.call{value: msg.value}("");
+    if (!ok) revert Unsuccessful();
   }
 }

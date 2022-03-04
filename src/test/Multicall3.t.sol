@@ -4,15 +4,18 @@ pragma solidity 0.8.12;
 import {Multicall3} from "../Multicall3.sol";
 import {DSTestPlus} from "./utils/DSTestPlus.sol";
 import {MockCallee} from "./mocks/MockCallee.sol";
+import {EtherSink} from "./mocks/EtherSink.sol";
 
 contract Multicall3Test is DSTestPlus {
   Multicall3 multicall;
   MockCallee callee;
+  EtherSink etherSink;
 
   /// @notice Setups up the testing suite
   function setUp() public {
     multicall = new Multicall3();
     callee = new MockCallee();
+    etherSink = new EtherSink();
   }
 
   /// >>>>>>>>>>>>>>>>>>>>>  AGGREGATE TESTS  <<<<<<<<<<<<<<<<<<<<< ///
@@ -113,7 +116,7 @@ contract Multicall3Test is DSTestPlus {
     Multicall3.Call3Value[] memory calls = new Multicall3.Call3Value[](3);
     calls[0] = Multicall3.Call3Value(address(callee), false, 0, abi.encodeWithSignature("getBlockHash(uint256)", block.number));
     calls[1] = Multicall3.Call3Value(address(callee), true, 0, abi.encodeWithSignature("thisMethodReverts()"));
-    calls[2] = Multicall3.Call3Value(address(callee), true, 1, abi.encodeWithSignature("sendBackValue()"));
+    calls[2] = Multicall3.Call3Value(address(callee), true, 1, abi.encodeWithSignature("sendBackValue(address)", address(etherSink)));
     (Multicall3.Result[] memory returnData) = multicall.aggregate3Value{value: 1}(calls);
     assertTrue(returnData[0].success);
     assertEq(keccak256(returnData[0].returnData), keccak256(abi.encodePacked(blockhash(block.number))));
@@ -125,7 +128,7 @@ contract Multicall3Test is DSTestPlus {
     Multicall3.Call3Value[] memory calls = new Multicall3.Call3Value[](3);
     calls[0] = Multicall3.Call3Value(address(callee), false, 0, abi.encodeWithSignature("getBlockHash(uint256)", block.number));
     calls[1] = Multicall3.Call3Value(address(callee), false, 0, abi.encodeWithSignature("thisMethodReverts()"));
-    calls[2] = Multicall3.Call3Value(address(callee), false, 1, abi.encodeWithSignature("sendBackValue()"));
+    calls[2] = Multicall3.Call3Value(address(callee), false, 1, abi.encodeWithSignature("sendBackValue(address)", address(etherSink)));
     vm.expectRevert(bytes("Multicall3: aggregate3Value failed"));
     multicall.aggregate3Value(calls);
 
@@ -133,7 +136,7 @@ contract Multicall3Test is DSTestPlus {
     Multicall3.Call3Value[] memory calls2 = new Multicall3.Call3Value[](3);
     calls2[0] = Multicall3.Call3Value(address(callee), true, 0, abi.encodeWithSignature("getBlockHash(uint256)", block.number));
     calls2[1] = Multicall3.Call3Value(address(callee), true, 0, abi.encodeWithSignature("thisMethodReverts()"));
-    calls2[2] = Multicall3.Call3Value(address(callee), true, 1, abi.encodeWithSignature("sendBackValue()"));
+    calls2[2] = Multicall3.Call3Value(address(callee), true, 1, abi.encodeWithSignature("sendBackValue(address)", address(etherSink)));
     vm.expectRevert(bytes("Multicall3: aggregate3Value failed"));
     multicall.aggregate3Value(calls2);
 
@@ -141,7 +144,7 @@ contract Multicall3Test is DSTestPlus {
     Multicall3.Call3Value[] memory calls3 = new Multicall3.Call3Value[](3);
     calls3[0] = Multicall3.Call3Value(address(callee), false, 0, abi.encodeWithSignature("getBlockHash(uint256)", block.number));
     calls3[1] = Multicall3.Call3Value(address(callee), true, 0, abi.encodeWithSignature("thisMethodReverts()"));
-    calls3[2] = Multicall3.Call3Value(address(callee), false, 1, abi.encodeWithSignature("sendBackValue()"));
+    calls3[2] = Multicall3.Call3Value(address(callee), false, 1, abi.encodeWithSignature("sendBackValue(address)", address(etherSink)));
     multicall.aggregate3Value{value: 1}(calls3);
   }
 
