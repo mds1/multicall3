@@ -20,4 +20,9 @@ contract MockCallee {
   function thisMethodReverts() public pure {
     revert Unsuccessful();
   }
+
+  /// @notice Accepts a value
+  function sendBackValue() public payable {
+    msg.sender.call{value: msg.value}("");
+  }
 }

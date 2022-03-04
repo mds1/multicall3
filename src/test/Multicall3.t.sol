@@ -107,6 +107,44 @@ contract Multicall3Test is DSTestPlus {
     multicall.aggregate3(calls);
   }
 
+  /// >>>>>>>>>>>>>>>>>  AGGREGATE3VALUE TESTS  <<<<<<<<<<<<<<<<<<< ///
+
+  function testAggregate3Value() public {
+    Multicall3.Call3Value[] memory calls = new Multicall3.Call3Value[](3);
+    calls[0] = Multicall3.Call3Value(address(callee), false, 0, abi.encodeWithSignature("getBlockHash(uint256)", block.number));
+    calls[1] = Multicall3.Call3Value(address(callee), true, 0, abi.encodeWithSignature("thisMethodReverts()"));
+    calls[2] = Multicall3.Call3Value(address(callee), true, 1, abi.encodeWithSignature("sendBackValue()"));
+    (Multicall3.Result[] memory returnData) = multicall.aggregate3Value{value: 1}(calls);
+    assertTrue(returnData[0].success);
+    assertEq(keccak256(returnData[0].returnData), keccak256(abi.encodePacked(blockhash(block.number))));
+    assertTrue(!returnData[1].success);
+    assertTrue(returnData[2].success);
+  }
+
+  function testAggregate3ValueUnsuccessful() public {
+    Multicall3.Call3Value[] memory calls = new Multicall3.Call3Value[](3);
+    calls[0] = Multicall3.Call3Value(address(callee), false, 0, abi.encodeWithSignature("getBlockHash(uint256)", block.number));
+    calls[1] = Multicall3.Call3Value(address(callee), false, 0, abi.encodeWithSignature("thisMethodReverts()"));
+    calls[2] = Multicall3.Call3Value(address(callee), false, 1, abi.encodeWithSignature("sendBackValue()"));
+    vm.expectRevert(bytes("Multicall3: aggregate3Value failed"));
+    multicall.aggregate3Value(calls);
+
+    // Should fail if we don't provide enough value
+    Multicall3.Call3Value[] memory calls2 = new Multicall3.Call3Value[](3);
+    calls2[0] = Multicall3.Call3Value(address(callee), true, 0, abi.encodeWithSignature("getBlockHash(uint256)", block.number));
+    calls2[1] = Multicall3.Call3Value(address(callee), true, 0, abi.encodeWithSignature("thisMethodReverts()"));
+    calls2[2] = Multicall3.Call3Value(address(callee), true, 1, abi.encodeWithSignature("sendBackValue()"));
+    vm.expectRevert(bytes("Multicall3: aggregate3Value failed"));
+    multicall.aggregate3Value(calls2);
+
+    // Works if we provide enough value
+    Multicall3.Call3Value[] memory calls3 = new Multicall3.Call3Value[](3);
+    calls3[0] = Multicall3.Call3Value(address(callee), false, 0, abi.encodeWithSignature("getBlockHash(uint256)", block.number));
+    calls3[1] = Multicall3.Call3Value(address(callee), true, 0, abi.encodeWithSignature("thisMethodReverts()"));
+    calls3[2] = Multicall3.Call3Value(address(callee), false, 1, abi.encodeWithSignature("sendBackValue()"));
+    multicall.aggregate3Value{value: 1}(calls3);
+  }
+
   /// >>>>>>>>>>>>>>>>>>>>>>  HELPER TESTS  <<<<<<<<<<<<<<<<<<<<<<< ///
 
   function testGetBlockHash(uint256 blockNumber) public {
