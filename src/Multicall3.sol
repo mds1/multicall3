@@ -4,11 +4,11 @@ pragma solidity 0.8.12;
 /// @title Multicall3
 /// @notice Aggregate results from multiple read-only function calls
 /// @dev Multicall & Multicall2 backwards-compatible
+/// @dev Aggregate methods are marked `payable` to save 24 gas per call
 /// @author Michael Elliot <mike@makerdao.com>
 /// @author Joshua Levine <joshua@makerdao.com>
 /// @author Nick Johnson <arachnid@notdot.net>
 /// @author Andreas Bigger <andreas@nascent.xyz>
-
 contract Multicall3 {
     struct Call {
         address target;
@@ -26,7 +26,7 @@ contract Multicall3 {
         bytes returnData;
     }
 
-    function aggregate(Call[] calldata calls) public returns (uint256 blockNumber, bytes[] memory returnData) {
+    function aggregate(Call[] calldata calls) public payable returns (uint256 blockNumber, bytes[] memory returnData) {
         blockNumber = block.number;
         uint256 length = calls.length;
         returnData = new bytes[](length);
@@ -40,7 +40,7 @@ contract Multicall3 {
         }
     }
 
-    function tryAggregate(bool requireSuccess, Call[] calldata calls) public returns (Result[] memory returnData) {
+    function tryAggregate(bool requireSuccess, Call[] calldata calls) public payable returns (Result[] memory returnData) {
         uint256 length = calls.length;
         returnData = new Result[](length);
         Call calldata call;
@@ -53,17 +53,17 @@ contract Multicall3 {
         }
     }
 
-    function tryBlockAndAggregate(bool requireSuccess, Call[] calldata calls) public returns (uint256 blockNumber, bytes32 blockHash, Result[] memory returnData) {
+    function tryBlockAndAggregate(bool requireSuccess, Call[] calldata calls) public payable returns (uint256 blockNumber, bytes32 blockHash, Result[] memory returnData) {
         blockNumber = block.number;
         blockHash = blockhash(block.number);
         returnData = tryAggregate(requireSuccess, calls);
     }
 
-    function blockAndAggregate(Call[] calldata calls) public returns (uint256 blockNumber, bytes32 blockHash, Result[] memory returnData) {
+    function blockAndAggregate(Call[] calldata calls) public payable returns (uint256 blockNumber, bytes32 blockHash, Result[] memory returnData) {
         (blockNumber, blockHash, returnData) = tryBlockAndAggregate(true, calls);
     }
 
-    function aggregate3(Call3[] calldata calls) public returns (uint256 blockNumber, bytes32 blockHash, Result[] memory returnData) {
+    function aggregate3(Call3[] calldata calls) public payable returns (uint256 blockNumber, bytes32 blockHash, Result[] memory returnData) {
         blockNumber = block.number;
         blockHash = blockhash(block.number);
         returnData = new Result[](calls.length);
