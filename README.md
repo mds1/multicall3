@@ -113,3 +113,10 @@ To learn more about Foundry:
 - Check out the Foundry [book](https://onbjerg.github.io/foundry-book/)
 - Learn advanced ways to use `foundryup` in the [foundryup package](https://github.com/gakonst/foundry/tree/master/foundryup)
 - Check out the [awesome-foundry](https://github.com/crisgarner/awesome-foundry) repo
+
+### Gas Golfing Tricks and Optimizations
+
+
+
+**External Resources**
+- [ControlCplusControlV](https://twitter.com/controlcthenv)'s Hackmd [article](https://hackmd.io/@gn56kcRBQc6mOi7LCgbv1g/rJez8O8st)

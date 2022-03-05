@@ -98,12 +98,18 @@ contract Multicall3 {
     function aggregate3(Call3[] calldata calls) public payable returns (Result[] memory returnData) {
         returnData = new Result[](calls.length);
         uint256 length = calls.length;
-        Call3 calldata call;
+        Call3 calldata calli;
         for (uint256 i = 0; i < length;) {
             Result memory result = returnData[i];
-            call = calls[i];
-            (result.success, result.returnData) = call.target.call(call.callData);
-            require(call.allowFailure || result.success, "Multicall3: aggregate3 failed");
+            calli = calls[i];
+            (result.success, result.returnData) = calli.target.call(calli.callData);
+            assembly {
+                let allowFailure := shr(0x20, calldataload(calli))
+                let success := shl(0x31, mload(add(result, 0x20)))
+                if iszero(or(allowFailure, success)) {
+                    revert(0, "Multicall3: aggregate3 failed")
+                }
+            }
             unchecked { ++i; }
         }
     }
