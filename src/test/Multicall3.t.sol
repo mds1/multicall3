@@ -183,4 +183,12 @@ contract Multicall3Test is DSTestPlus {
     if (block.number == 0) return;
     assertEq(blockhash(block.number - 1), multicall.getLastBlockHash());
   }
+
+  function testGetBasefee() public {
+    assertEq(block.basefee, multicall.getBasefee());
+  }
+
+  function testGetChainId() public {
+    assertEq(block.chainid, multicall.getChainId());
+  }
 }

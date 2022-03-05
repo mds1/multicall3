@@ -138,52 +138,55 @@ contract Multicall3 {
 
     /// @notice Returns the block hash for the given block number
     /// @param blockNumber The block number
-    /// @return blockHash The 32 byte block hash
     function getBlockHash(uint256 blockNumber) public view returns (bytes32 blockHash) {
         blockHash = blockhash(blockNumber);
     }
 
     /// @notice Returns the block number
-    /// @return blockNumber The 32 byte (256 bits) unsigned block number
     function getBlockNumber() public view returns (uint256 blockNumber) {
         blockNumber = block.number;
     }
 
     /// @notice Returns the block coinbase
-    /// @return coinbase The 20 byte coinbase address
     function getCurrentBlockCoinbase() public view returns (address coinbase) {
         coinbase = block.coinbase;
     }
 
     /// @notice Returns the block difficulty
-    /// @return difficulty The 32 byte (256 bits) unsigned block difficulty
     function getCurrentBlockDifficulty() public view returns (uint256 difficulty) {
         difficulty = block.difficulty;
     }
 
     /// @notice Returns the block gas limit
-    /// @return gaslimit The 32 byte (256 bits) unsigned block gas limit
     function getCurrentBlockGasLimit() public view returns (uint256 gaslimit) {
         gaslimit = block.gaslimit;
     }
 
     /// @notice Returns the block timestamp
-    /// @return timestamp The 32 byte (256 bits) unsigned block timestamp
     function getCurrentBlockTimestamp() public view returns (uint256 timestamp) {
         timestamp = block.timestamp;
     }
 
     /// @notice Returns the (ETH) balance of a given address
-    /// @return balance The 32 byte (256 bits) unsigned balance
     function getEthBalance(address addr) public view returns (uint256 balance) {
         balance = addr.balance;
     }
 
     /// @notice Returns the block hash of the last block
-    /// @return blockHash The 32 byte last block hash
     function getLastBlockHash() public view returns (bytes32 blockHash) {
         unchecked {
             blockHash = blockhash(block.number - 1);
         }
+    }
+
+    /// @notice Gets the base fee of the given block
+    /// @notice Can revert if the BASEFEE Opcode is not implemented by the given chain
+    function getBasefee() public view returns (uint256 basefee) {
+        basefee = block.basefee;
+    }
+
+    /// @notice Returns the chain id
+    function getChainId() public view returns (uint256 chainid) {
+        chainid = block.chainid;
     }
 }
