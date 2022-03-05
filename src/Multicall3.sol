@@ -124,10 +124,11 @@ contract Multicall3 {
         for (uint256 i = 0; i < length;) {
             Result memory result = returnData[i];
             call = calls[i];
+            uint256 val = call.value;
             // Humanity will be a Type V Kardashev Civilization before this overflows - andreas
             // ~ 10^25 Wei in existence << ~ 10^76 size uint fits in a uint256
-            unchecked { valAccumulator += call.value; }
-            (result.success, result.returnData) = call.target.call{value: call.value}(call.callData);
+            unchecked { valAccumulator += val; }
+            (result.success, result.returnData) = call.target.call{value: val}(call.callData);
             require(call.allowFailure || result.success, "Multicall3: aggregate3Value failed");
             unchecked { ++i; }
         }
