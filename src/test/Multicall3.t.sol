@@ -94,9 +94,7 @@ contract Multicall3Test is DSTestPlus {
     Multicall3.Call3[] memory calls = new Multicall3.Call3[](2);
     calls[0] = Multicall3.Call3(address(callee), false, abi.encodeWithSignature("getBlockHash(uint256)", block.number));
     calls[1] = Multicall3.Call3(address(callee), true, abi.encodeWithSignature("thisMethodReverts()"));
-    (uint256 blockNumber, bytes32 blockHash, Multicall3.Result[] memory returnData) = multicall.aggregate3(calls);
-    assertEq(blockNumber, block.number);
-    assertEq(blockHash, blockhash(block.number));
+    (Multicall3.Result[] memory returnData) = multicall.aggregate3(calls);
     assertTrue(returnData[0].success);
     assertEq(keccak256(returnData[0].returnData), keccak256(abi.encodePacked(blockhash(block.number))));
     assertTrue(!returnData[1].success);

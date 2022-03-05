@@ -94,12 +94,8 @@ contract Multicall3 {
 
     /// @notice Aggregate calls, ensuring each returns success if required
     /// @param calls An array of Call3 structs
-    /// @return blockNumber The block number where the calls were executed
-    /// @return blockHash The hash of the block where the calls were executed
     /// @return returnData An array of Result structs
-    function aggregate3(Call3[] calldata calls) public payable returns (uint256 blockNumber, bytes32 blockHash, Result[] memory returnData) {
-        blockNumber = block.number;
-        blockHash = blockhash(block.number);
+    function aggregate3(Call3[] calldata calls) public payable returns (Result[] memory returnData) {
         returnData = new Result[](calls.length);
         uint256 length = calls.length;
         Call3 calldata call;
