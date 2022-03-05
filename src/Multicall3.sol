@@ -126,11 +126,12 @@ contract Multicall3 {
             // Humanity will be a Type V Kardashev Civilization before this overflows - andreas
             // ~ 10^25 Wei in existence << ~ 10^76 size uint fits in a uint256
             unchecked { valAccumulator += call.value; }
-            require(msg.value >= valAccumulator, "Multicall3: aggregate3Value failed");
             (result.success, result.returnData) = call.target.call{value: call.value}(call.callData);
             require(call.allowFailure || result.success, "Multicall3: aggregate3Value failed");
             unchecked { ++i; }
         }
+        // Finally, make sure the msg.value = SUM(call[0...i].value)
+        require(msg.value == valAccumulator, "Multicall3: aggregate3Value failed");
     }
 
     /// @notice Returns the block hash for the given block number
