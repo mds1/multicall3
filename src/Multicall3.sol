@@ -92,6 +92,7 @@ contract Multicall3 {
         (blockNumber, blockHash, returnData) = tryBlockAndAggregate(true, calls);
     }
 
+    event Debug(string x, bytes32 y);
     /// @notice Aggregate calls, ensuring each returns success if required
     /// @param calls An array of Call3 structs
     /// @return returnData An array of Result structs
@@ -103,10 +104,28 @@ contract Multicall3 {
             Result memory result = returnData[i];
             calli = calls[i];
             (result.success, result.returnData) = calli.target.call(calli.callData);
+
+            // --- START DEBUG TO VERIFY VALUES ---
+            bytes32 allowFailureTest;
+            bytes32 successTest;
+            bytes32 res;
             assembly {
-                let allowFailure := shr(0x20, calldataload(calli))
-                let success := shl(0x31, mload(add(result, 0x20)))
+                allowFailureTest := calldataload(add(calli, 32))
+                successTest := mload(result)
+                res := iszero(or(allowFailureTest, successTest))
+            }
+            emit Debug("allowFailureTest", allowFailureTest);
+            emit Debug("successTest     ", successTest);
+            emit Debug("res             ", res);
+            // --- END DEBUG ---
+    
+            assembly {
+                // allowFailure is second element in the array, so load calldata one slot past the calli start
+                let allowFailure := calldataload(add(calli, 32))
+                // success is the first element in the result, so load that directly
+                let success := mload(result)
                 if iszero(or(allowFailure, success)) {
+                    // TODO: FOUNDRY DOESN'T CATCH THIS REVERT?
                     revert(0, "Multicall3: aggregate3 failed")
                 }
             }
