@@ -104,13 +104,20 @@ contract Multicall3 {
             calli = calls[i];
             (result.success, result.returnData) = calli.target.call(calli.callData);
             assembly {
-                let allowFailure := shr(0xa0, calldataload(calli))
-                let success := and(0xFF, mload(add(result, 0x20)))
-                // if iszero(allowFailure) {
-                //     revert(0, "Multicall3: aggregate3 failed")
-                // }
+                // Load the `allowFailure` part of the abi encodePacked calli calldata Call3 struct
+                let allowFailure := calldataload(add(calli, 32))
+                // Load result and mask on the success bool byte
+                let success := and(0xFF, mload(result))
                 if iszero(or(allowFailure, success)) {
-                    revert(0, "Multicall3: aggregate3 failed")
+                    // set Error(string) signature
+                    mstore(0x00, 0x08c379a000000000000000000000000000000000000000000000000000000000)
+                    // set data offset
+                    mstore(0x04, 0x0000000000000000000000000000000000000000000000000000000000000020)
+                    // set length
+                    mstore(0x24, 0x000000000000000000000000000000000000000000000000000000000000001d)
+                    // set revert string
+                    mstore(0x44, 0x4d756c746963616c6c333a2061676772656761746533206661696c6564000000)
+                    revert(0x00, 0x64)
                 }
             }
             unchecked { ++i; }
