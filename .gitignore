@@ -7,3 +7,4 @@ cache
 .env
 .env.prod
 
+old.gas-snapshot
