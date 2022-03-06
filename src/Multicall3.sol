@@ -104,8 +104,11 @@ contract Multicall3 {
             calli = calls[i];
             (result.success, result.returnData) = calli.target.call(calli.callData);
             assembly {
-                let allowFailure := shr(0x20, calldataload(calli))
-                let success := shl(0x31, mload(add(result, 0x20)))
+                let allowFailure := shr(0xa0, calldataload(calli))
+                let success := and(0xFF, mload(add(result, 0x20)))
+                // if iszero(allowFailure) {
+                //     revert(0, "Multicall3: aggregate3 failed")
+                // }
                 if iszero(or(allowFailure, success)) {
                     revert(0, "Multicall3: aggregate3 failed")
                 }
