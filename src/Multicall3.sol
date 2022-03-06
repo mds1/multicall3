@@ -105,17 +105,17 @@ contract Multicall3 {
             (result.success, result.returnData) = calli.target.call(calli.callData);
             assembly {
                 // Load the `allowFailure` part of the abi encodePacked calli calldata Call3 struct
-                let allowFailure := calldataload(add(calli, 32))
+                let allowFailure := calldataload(add(calli, 0x20))
                 // Load result and mask on the success bool byte
                 let success := and(0xFF, mload(result))
                 if iszero(or(allowFailure, success)) {
-                    // set Error(string) signature
+                    // set "Error(string)" signature: bytes32(bytes4(keccak256("Error(string)")))
                     mstore(0x00, 0x08c379a000000000000000000000000000000000000000000000000000000000)
                     // set data offset
                     mstore(0x04, 0x0000000000000000000000000000000000000000000000000000000000000020)
-                    // set length
+                    // set length of revert string
                     mstore(0x24, 0x000000000000000000000000000000000000000000000000000000000000001d)
-                    // set revert string
+                    // set revert string: bytes32(abi.encodePacked("Multicall3: aggregate3 failed"))
                     mstore(0x44, 0x4d756c746963616c6c333a2061676772656761746533206661696c6564000000)
                     revert(0x00, 0x64)
                 }
@@ -132,16 +132,33 @@ contract Multicall3 {
         uint256 valAccumulator;
         returnData = new Result[](calls.length);
         uint256 length = calls.length;
-        Call3Value calldata call;
+        Call3Value calldata calli;
         for (uint256 i = 0; i < length;) {
             Result memory result = returnData[i];
-            call = calls[i];
-            uint256 val = call.value;
+            calli = calls[i];
+            uint256 val = calli.value;
             // Humanity will be a Type V Kardashev Civilization before this overflows - andreas
             // ~ 10^25 Wei in existence << ~ 10^76 size uint fits in a uint256
             unchecked { valAccumulator += val; }
-            (result.success, result.returnData) = call.target.call{value: val}(call.callData);
-            require(call.allowFailure || result.success, "Multicall3: aggregate3Value failed");
+            (result.success, result.returnData) = calli.target.call{value: val}(calli.callData);
+            assembly {
+                // Load the `allowFailure` part of the abi encodePacked calli calldata Call3 struct
+                let allowFailure := calldataload(add(calli, 0x20))
+                // Load result and mask on the success bool byte
+                let success := and(0xFF, mload(result))
+                if iszero(or(allowFailure, success)) {
+                    // set "Error(string)" signature: bytes32(bytes4(keccak256("Error(string)")))
+                    mstore(0x00, 0x08c379a000000000000000000000000000000000000000000000000000000000)
+                    // set data offset
+                    mstore(0x04, 0x0000000000000000000000000000000000000000000000000000000000000020)
+                    // set length of revert string
+                    mstore(0x24, 0x0000000000000000000000000000000000000000000000000000000000000022)
+                    // set revert string: abi.encodePacked("Multicall3: aggregate3Value failed")
+                    mstore(0x44, 0x4d756c746963616c6c333a206167677265676174653356616c7565206661696c)
+                    mstore(0x64, 0x6564000000000000000000000000000000000000000000000000000000000000)
+                    revert(0x00, 0x84)
+                }
+            }
             unchecked { ++i; }
         }
         // Finally, make sure the msg.value = SUM(call[0...i].value)
