@@ -113,3 +113,20 @@ To learn more about Foundry:
 - Check out the Foundry [book](https://onbjerg.github.io/foundry-book/)
 - Learn advanced ways to use `foundryup` in the [foundryup package](https://github.com/gakonst/foundry/tree/master/foundryup)
 - Check out the [awesome-foundry](https://github.com/crisgarner/awesome-foundry) repo
+
+### Gas Golfing Tricks and Optimizations
+
+Below is a list of some of the optimizations used by Multicall3's `aggregate3` and `aggregate3Value` methods:
+- In for loops, array length is cached to avoid reading the length on each loop iteration
+- In for loops, the counter is incremented within an `unchecked` block
+- All revert strings fit within a single 32 byte slot
+- Function parameters use `calldata` instead of `memory`
+- Instead of requiring `call.allowFailure || result.success`, we use assembly's `or()` instruction to avoid a `JUMPI` and `iszero()` since it's cheaper to evaluate both conditions
+- Methods are given a `payable` modifier which removes a check that `msg.value == 0` when calling a method
+- Calldata and memory pointers are used to cache values so they are not read multiple times within a loop
+- No block data (e.g. block number, hash, or timestamp) is returned by default, and is instead left up to the caller
+- The value accumulator in `aggregate3Value` is within an `unchecked` block
+
+Read more about Solidity gas optimization tips:
+- [Generic writeup about common gas optimizations, etc.](https://gist.github.com/hrkrshnn/ee8fabd532058307229d65dcd5836ddc) by [Harikrishnan Mulackal](https://twitter.com/_hrkrshnn)
+- [Yul (and Some Solidity) Optimizations and Tricks](https://hackmd.io/@gn56kcRBQc6mOi7LCgbv1g/rJez8O8st) by [ControlCplusControlV](https://twitter.com/controlcthenv)
