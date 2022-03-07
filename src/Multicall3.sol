@@ -47,7 +47,7 @@ contract Multicall3 {
             bool success;
             call = calls[i];
             (success, returnData[i]) = call.target.call(call.callData);
-            require(success, "Multicall3: aggregate failed");
+            require(success, "Multicall3: call failed");
             unchecked { ++i; }
         }
     }
@@ -65,7 +65,7 @@ contract Multicall3 {
             Result memory result = returnData[i];
             call = calls[i];
             (result.success, result.returnData) = call.target.call(call.callData);
-            if (requireSuccess) require(result.success, "Multicall3: tryAggregate failed");
+            if (requireSuccess) require(result.success, "Multicall3: call failed");
             unchecked { ++i; }
         }
     }
@@ -114,9 +114,9 @@ contract Multicall3 {
                     // set data offset
                     mstore(0x04, 0x0000000000000000000000000000000000000000000000000000000000000020)
                     // set length of revert string
-                    mstore(0x24, 0x000000000000000000000000000000000000000000000000000000000000001d)
-                    // set revert string: bytes32(abi.encodePacked("Multicall3: aggregate3 failed"))
-                    mstore(0x44, 0x4d756c746963616c6c333a2061676772656761746533206661696c6564000000)
+                    mstore(0x24, 0x0000000000000000000000000000000000000000000000000000000000000017)
+                    // set revert string: bytes32(abi.encodePacked("Multicall3: call failed"))
+                    mstore(0x44, 0x4d756c746963616c6c333a2063616c6c206661696c6564000000000000000000)
                     revert(0x00, 0x64)
                 }
             }
@@ -152,17 +152,16 @@ contract Multicall3 {
                     // set data offset
                     mstore(0x04, 0x0000000000000000000000000000000000000000000000000000000000000020)
                     // set length of revert string
-                    mstore(0x24, 0x0000000000000000000000000000000000000000000000000000000000000022)
-                    // set revert string: abi.encodePacked("Multicall3: aggregate3Value failed")
-                    mstore(0x44, 0x4d756c746963616c6c333a206167677265676174653356616c7565206661696c)
-                    mstore(0x64, 0x6564000000000000000000000000000000000000000000000000000000000000)
+                    mstore(0x24, 0x0000000000000000000000000000000000000000000000000000000000000017)
+                    // set revert string: bytes32(abi.encodePacked("Multicall3: call failed"))
+                    mstore(0x44, 0x4d756c746963616c6c333a2063616c6c206661696c6564000000000000000000)
                     revert(0x00, 0x84)
                 }
             }
             unchecked { ++i; }
         }
         // Finally, make sure the msg.value = SUM(call[0...i].value)
-        require(msg.value == valAccumulator, "Multicall3: aggregate3Value failed");
+        require(msg.value == valAccumulator, "Multicall3: value mismatch");
     }
 
     /// @notice Returns the block hash for the given block number
