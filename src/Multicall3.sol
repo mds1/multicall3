@@ -10,6 +10,7 @@ pragma solidity 0.8.12;
 /// @author Joshua Levine <joshua@makerdao.com>
 /// @author Nick Johnson <arachnid@notdot.net>
 /// @author Andreas Bigger <andreas@nascent.xyz>
+/// @author Matt Solomon <matt@mattsolomon.dev>
 contract Multicall3 {
     struct Call {
         address target;
