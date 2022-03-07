@@ -119,6 +119,7 @@ To learn more about Foundry:
 Below is a list of some of the optimizations used by Multicall3's `aggregate3` and `aggregate3Value` methods:
 - In for loops, array length is cached to avoid reading the length on each loop iteration
 - In for loops, the counter is incremented within an `unchecked` block
+- In for loops, the counter is incremented with the prefix increment (`++i`) instead of a postfix increment (`i++`)
 - All revert strings fit within a single 32 byte slot
 - Function parameters use `calldata` instead of `memory`
 - Instead of requiring `call.allowFailure || result.success`, we use assembly's `or()` instruction to avoid a `JUMPI` and `iszero()` since it's cheaper to evaluate both conditions
