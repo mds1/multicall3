@@ -104,11 +104,12 @@ contract Multicall3 {
             calli = calls[i];
             (result.success, result.returnData) = calli.target.call(calli.callData);
             assembly {
-                // Load the `allowFailure` part of the abi encodePacked calli calldata Call3 struct
-                let allowFailure := calldataload(add(calli, 0x20))
-                // Load result and mask on the success bool byte
-                let success := and(0xFF, mload(result))
-                if iszero(or(allowFailure, success)) {
+                // The `allowFailure` part of the calli calldata can be parsed from the Call3 struct with:
+                //   let allowFailure := calldataload(add(calli, 0x20))
+                // The success status of the call is the first word returned:
+                //   let success := mload(result)
+                // And we inline both of these directly into the or() statement to save gas
+                if iszero(or(calldataload(add(calli, 0x20)), mload(result))) {
                     // set "Error(string)" signature: bytes32(bytes4(keccak256("Error(string)")))
                     mstore(0x00, 0x08c379a000000000000000000000000000000000000000000000000000000000)
                     // set data offset
@@ -142,11 +143,12 @@ contract Multicall3 {
             unchecked { valAccumulator += val; }
             (result.success, result.returnData) = calli.target.call{value: val}(calli.callData);
             assembly {
-                // Load the `allowFailure` part of the abi encodePacked calli calldata Call3 struct
-                let allowFailure := calldataload(add(calli, 0x20))
-                // Load result and mask on the success bool byte
-                let success := and(0xFF, mload(result))
-                if iszero(or(allowFailure, success)) {
+                // The `allowFailure` part of the calli calldata can be parsed from the Call3 struct with:
+                //   let allowFailure := calldataload(add(calli, 0x20))
+                // The success status of the call is the first word returned:
+                //   let success := mload(result)
+                // And we inline both of these directly into the or() statement to save gas
+                if iszero(or(calldataload(add(calli, 0x20)), mload(result))) {
                     // set "Error(string)" signature: bytes32(bytes4(keccak256("Error(string)")))
                     mstore(0x00, 0x08c379a000000000000000000000000000000000000000000000000000000000)
                     // set data offset
