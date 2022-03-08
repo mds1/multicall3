@@ -96,8 +96,8 @@ contract Multicall3 {
     /// @param calls An array of Call3 structs
     /// @return returnData An array of Result structs
     function aggregate3(Call3[] calldata calls) public payable returns (Result[] memory returnData) {
-        returnData = new Result[](calls.length);
         uint256 length = calls.length;
+        returnData = new Result[](length);
         Call3 calldata calli;
         for (uint256 i = 0; i < length;) {
             Result memory result = returnData[i];
@@ -128,8 +128,8 @@ contract Multicall3 {
     /// @return returnData An array of Result structs
     function aggregate3Value(Call3Value[] calldata calls) public payable returns (Result[] memory returnData) {
         uint256 valAccumulator;
-        returnData = new Result[](calls.length);
         uint256 length = calls.length;
+        returnData = new Result[](length);
         Call3Value calldata calli;
         for (uint256 i = 0; i < length;) {
             Result memory result = returnData[i];
