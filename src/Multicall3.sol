@@ -104,11 +104,8 @@ contract Multicall3 {
             calli = calls[i];
             (result.success, result.returnData) = calli.target.call(calli.callData);
             assembly {
-                // The `allowFailure` part of the calli calldata can be parsed from the Call3 struct with:
-                //   let allowFailure := calldataload(add(calli, 0x20))
-                // The success status of the call is the first word returned:
-                //   let success := mload(result)
-                // And we inline both of these directly into the or() statement to save gas
+                // Revert if the call fails and failure is not allowed
+                // `allowFailure := calldataload(add(calli, 0x20))` and `success := mload(result)`
                 if iszero(or(calldataload(add(calli, 0x20)), mload(result))) {
                     // set "Error(string)" signature: bytes32(bytes4(keccak256("Error(string)")))
                     mstore(0x00, 0x08c379a000000000000000000000000000000000000000000000000000000000)
@@ -143,11 +140,8 @@ contract Multicall3 {
             unchecked { valAccumulator += val; }
             (result.success, result.returnData) = calli.target.call{value: val}(calli.callData);
             assembly {
-                // The `allowFailure` part of the calli calldata can be parsed from the Call3 struct with:
-                //   let allowFailure := calldataload(add(calli, 0x20))
-                // The success status of the call is the first word returned:
-                //   let success := mload(result)
-                // And we inline both of these directly into the or() statement to save gas
+                // Revert if the call fails and failure is not allowed
+                // `allowFailure := calldataload(add(calli, 0x20))` and `success := mload(result)`
                 if iszero(or(calldataload(add(calli, 0x20)), mload(result))) {
                     // set "Error(string)" signature: bytes32(bytes4(keccak256("Error(string)")))
                     mstore(0x00, 0x08c379a000000000000000000000000000000000000000000000000000000000)
