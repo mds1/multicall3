@@ -16,6 +16,11 @@ There are three contracts in this repository:
 - `Multicall2`: The same as Multicall, but provides additional functions that allow calls within the batch to fail. Useful for situations where a call may fail depending on the state of the contract.
 - `Multicall3`: **This is the recommended version**. It's ABI is backwards compatible with Multicall and Multicall2, but it's cheaper to use (so you can fit more calls into a single request), and it adds an `aggregate3` method so you can specify whether calls are allowed to fail on a per-call basis. Additionally, it's deployed at every network on the same address.
 
+These contracts can also be used to batch on-chain transactions. If using them
+for this purpose, be aware these contracts are unaudited so use them at your own
+risk. Additionally, make sure you understanding how `msg.sender` works when
+calling vs. delegatecalling to a Multicall contract.
+
 ## Deployments
 
 ### Multicall3 Contract Addresses
