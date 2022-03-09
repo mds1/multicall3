@@ -12,9 +12,9 @@ context so that results from old blocks can be ignored if they're from an
 out-of-date node).
 
 There are three contracts in this repository:
-- `Multicall`: The original contract containing an `aggregate` method to batch calls
-- `Multicall2`: The same as Multicall, but provides additional functions that allow calls within the batch to fail. Useful for situations where a call may fail depending on the state of the contract.
-- `Multicall3`: **This is the recommended version**. It's ABI is backwards compatible with Multicall and Multicall2, but it's cheaper to use (so you can fit more calls into a single request), and it adds an `aggregate3` method so you can specify whether calls are allowed to fail on a per-call basis. Additionally, it's deployed at every network on the same address.
+- [`Multicall`](./src/Multicall.sol): The original contract containing an `aggregate` method to batch calls
+- [`Multicall2`](./src/Multicall2.sol): The same as Multicall, but provides additional functions that allow calls within the batch to fail. Useful for situations where a call may fail depending on the state of the contract.
+- [`Multicall3`](./src/Multicall3.sol): **This is the recommended version**. It's ABI is backwards compatible with Multicall and Multicall2, but it's cheaper to use (so you can fit more calls into a single request), and it adds an `aggregate3` method so you can specify whether calls are allowed to fail on a per-call basis. Additionally, it's deployed at every network on the same address.
 
 These contracts can also be used to batch on-chain transactions. If using them
 for this purpose, be aware these contracts are unaudited so use them at your own
@@ -30,20 +30,30 @@ Multicall3 contains the following improvements over prior multicall contracts:
 - Backwards compatible: it can be dropped in to existing code by simply changing the address
 - Uses the same, memorable deployment address on all networks
 
-| Chain               | Address                                                                                                                                        |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet             | [0xcA11bde05977b3631167028862bE2a173976CA11](https://etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                     |
-| Kovan               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://kovan.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)               |
-| Rinkeby             | [0xcA11bde05977b3631167028862bE2a173976CA11](https://rinkeby.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)             |
-| Görli               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://goerli.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)              |
-| Ropsten             | [0xcA11bde05977b3631167028862bE2a173976CA11](https://ropsten.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)             |
-| Optimism            | [0xcA11bde05977b3631167028862bE2a173976CA11](https://optimistic.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)          |
-| Optimism Kovan      | [0xcA11bde05977b3631167028862bE2a173976CA11](https://kovan-optimistic.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)    |
-| Arbitrum            | [0xcA11bde05977b3631167028862bE2a173976CA11](https://arbiscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                      |
-| Arbitrum Rinkeby    | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.arbiscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)              |
-| Polygon             | [0xcA11bde05977b3631167028862bE2a173976CA11](https://polygonscan.com/address/0xca11bde05977b3631167028862be2a173976ca11#code)                  |
-| Mumbai              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://mumbai.polygonscan.com/address/0xca11bde05977b3631167028862be2a173976ca11#code)           |
-| Gnosis Chain (xDai) | [0xcA11bde05977b3631167028862bE2a173976CA11](https://blockscout.com/xdai/mainnet/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts) |
+| Chain                   | Address                                                                                                                                        |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Mainnet                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                     |
+| Kovan                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://kovan.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)               |
+| Rinkeby                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://rinkeby.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)             |
+| Görli                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://goerli.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)              |
+| Ropsten                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://ropsten.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)             |
+| Optimism                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://optimistic.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)          |
+| Optimism Kovan          | [0xcA11bde05977b3631167028862bE2a173976CA11](https://kovan-optimistic.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)    |
+| Arbitrum                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://arbiscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                      |
+| Arbitrum Rinkeby        | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.arbiscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)              |
+| Polygon                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://polygonscan.com/address/0xca11bde05977b3631167028862be2a173976ca11#code)                  |
+| Mumbai                  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://mumbai.polygonscan.com/address/0xca11bde05977b3631167028862be2a173976ca11#code)           |
+| Gnosis Chain (xDai)     | [0xcA11bde05977b3631167028862bE2a173976CA11](https://blockscout.com/xdai/mainnet/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts) |
+| Avalanche               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://snowtrace.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                     |
+| Avalanche Fuji          | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.snowtrace.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)             |
+| Fantom Testnet          | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.ftmscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)              |
+| Fantom Opera            | [0xcA11bde05977b3631167028862bE2a173976CA11](https://ftmscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                      |
+| BNB Smart Chain         | [0xcA11bde05977b3631167028862bE2a173976CA11](https://bscscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                      |
+| BNB Smart Chain Testnet | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.bscscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)              |
+
+If there is a network Multicall3 is not yet deployed on, please open an issue
+with a link to the block explorer. You can speed up the new deploy by sending
+funds to cover the deploy cost to the deployer account: 0x05f32B3cC3888453ff71B01135B34FF8e41263F2
 
 ## Historical Deployments
 
@@ -127,7 +137,7 @@ Below is a list of some of the optimizations used by Multicall3's `aggregate3` a
 - In for loops, the counter is incremented with the prefix increment (`++i`) instead of a postfix increment (`i++`)
 - All revert strings fit within a single 32 byte slot
 - Function parameters use `calldata` instead of `memory`
-- Instead of requiring `call.allowFailure || result.success`, we use assembly's `or()` instruction to avoid a `JUMPI` and `iszero()` since it's cheaper to evaluate both conditions
+- Instead of requiring `call.allowFailure || result.success`, we use assembly's `or()` instruction to [avoid](https://twitter.com/transmissions11/status/1501645922266091524) a `JUMPI` and `iszero()` since it's cheaper to evaluate both conditions
 - Methods are given a `payable` modifier which removes a check that `msg.value == 0` when calling a method
 - Calldata and memory pointers are used to cache values so they are not read multiple times within a loop
 - No block data (e.g. block number, hash, or timestamp) is returned by default, and is instead left up to the caller
