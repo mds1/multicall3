@@ -1,1 +1,10 @@
-/out
+out
+cache
+
+.vscode
+
+# Ignore environment variables incase someone accidentally sets and commits
+.env
+.env.prod
+
+old.gas-snapshot
