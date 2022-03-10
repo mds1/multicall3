@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    tags:
+      - 'v*.*.*'
   pull_request:
 
 jobs:
@@ -22,3 +24,13 @@ jobs:
 
       - name: Run Tests
         run: FOUNDRY_PROFILE=ci forge test
+
+      - name: Publish ABIs
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ABIs
+          files: | 
+            ./out/Multicall.sol/Multicall.json
+            ./out/Multicall2.sol/Multicall2.json
+            ./out/Multicall3.sol/Multicall3.json
