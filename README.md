@@ -50,6 +50,9 @@ Multicall3 contains the following improvements over prior multicall contracts:
 | Fantom Opera            | [0xcA11bde05977b3631167028862bE2a173976CA11](https://ftmscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                      |
 | BNB Smart Chain         | [0xcA11bde05977b3631167028862bE2a173976CA11](https://bscscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                      |
 | BNB Smart Chain Testnet | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.bscscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)              |
+| Moonbase Alpha Testnet  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://moonbase.moonscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)             |
+| Moonriver               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://moonriver.moonscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)            |
+| Moonbeam                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://moonbeam.moonscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)             |
 
 If there is a network Multicall3 is not yet deployed on, please open an issue
 with a link to the block explorer. You can speed up the new deploy by sending
@@ -99,12 +102,18 @@ Multicall2 is the same as Multicall, but provides additional functions that allo
 
 The following addresses have been submitted by external contributors and have not been vetted by Multicall maintainers.
 
-| Chain       | Address                                                                                                                          |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| RSK Mainnet | [0x6c62bf5440de2cb157205b15c424bceb5c3368f5](https://explorer.rsk.co/address/0x6c62bf5440de2cb157205b15c424bceb5c3368f5)         |
-| RSK Testnet | [0x9e469e1fc7fb4c5d17897b68eaf1afc9df39f103](https://explorer.testnet.rsk.co/address/0x9e469e1fc7fb4c5d17897b68eaf1afc9df39f103) |
-| BSC Mainnet | [0x41263cba59eb80dc200f3e2544eda4ed6a90e76c](https://bscscan.com/address/0x41263cba59eb80dc200f3e2544eda4ed6a90e76c)             |
-| BSC Testnet | [0xae11C5B5f29A6a25e955F0CB8ddCc416f522AF5C](https://testnet.bscscan.com/address/0xae11c5b5f29a6a25e955f0cb8ddcc416f522af5c)     |
+| Chain                       | Address                                                                                                                                     |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| RSK Mainnet                 | [0x6c62bf5440de2cb157205b15c424bceb5c3368f5](https://explorer.rsk.co/address/0x6c62bf5440de2cb157205b15c424bceb5c3368f5)                    |
+| RSK Testnet                 | [0x9e469e1fc7fb4c5d17897b68eaf1afc9df39f103](https://explorer.testnet.rsk.co/address/0x9e469e1fc7fb4c5d17897b68eaf1afc9df39f103)            |
+| BSC Mainnet                 | [0x41263cba59eb80dc200f3e2544eda4ed6a90e76c](https://bscscan.com/address/0x41263cba59eb80dc200f3e2544eda4ed6a90e76c)                        |
+| BSC Testnet                 | [0xae11C5B5f29A6a25e955F0CB8ddCc416f522AF5C](https://testnet.bscscan.com/address/0xae11c5b5f29a6a25e955f0cb8ddcc416f522af5c)                |
+| Moonbase Alpha Testnet (v1) | [0x4E2cfca20580747AdBA58cd677A998f8B261Fc21](https://moonbase.moonscan.io/address/0x4E2cfca20580747AdBA58cd677A998f8B261Fc21#code)          |
+| Moonbase Alpha Testnet (v2) | [0x37084d0158C68128d6Bc3E5db537Be996f7B6979](https://moonbase.moonscan.io/address/0x37084d0158C68128d6Bc3E5db537Be996f7B6979#code)          |
+| Moonriver (v1)              | [0x30f283Cc0284482e9c29dFB143bd483B5C19954b](https://moonriver.moonscan.io/address/0x30f283Cc0284482e9c29dFB143bd483B5C19954b#code)         |
+| Moonriver (v2)              | [0xaef00a0cf402d9dedd54092d9ca179be6f9e5ce3](https://moonriver.moonscan.io/address/0xaef00a0cf402d9dedd54092d9ca179be6f9e5ce3#code)         |
+| Moonbeam (v1)               | [0x83e3b61886770de2F64AAcaD2724ED4f08F7f36B](https://moonbeam.moonscan.io/address/0x83e3b61886770de2F64AAcaD2724ED4f08F7f36B#code)          |
+| Moonbeam (v2)               | [0x6477204E12A7236b9619385ea453F370aD897bb2](https://moonbeam.moonscan.io/address/0x6477204E12A7236b9619385ea453F370aD897bb2#code)          |
 
 ## Development
 
