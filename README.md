@@ -53,6 +53,7 @@ Multicall3 contains the following improvements over prior multicall contracts:
 | Moonbeam                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://moonscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                      |
 | Moonriver               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://moonriver.moonscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)            |
 | Moonbase Alpha Testnet  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://moonbase.moonscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)             |
+| Harmony                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.harmony.one/address/0xca11bde05977b3631167028862be2a173976ca11?activeTab=7)      |
 
 If there is a network Multicall3 is not yet deployed on, please open an issue
 with a link to the block explorer. You can speed up the new deploy by sending
