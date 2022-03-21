@@ -21,6 +21,11 @@ for this purpose, be aware these contracts are unaudited so use them at your own
 risk. Additionally, make sure you understanding how `msg.sender` works when
 calling vs. delegatecalling to a Multicall contract.
 
+You can obtain the ABI for the Multicall contracts in the following ways:
+- Download the ABI from the [releases](https://github.com/mds1/multicall/releases) page
+- Copy the ABI from [Etherscan](https://etherscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)
+- Install [Foundry](https://github.com/gakonst/foundry/) and run `cast interface <address>`
+
 ## Deployments
 
 ### Multicall3 Contract Addresses
@@ -54,6 +59,7 @@ Multicall3 contains the following improvements over prior multicall contracts:
 | Moonriver               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://moonriver.moonscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)            |
 | Moonbase Alpha Testnet  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://moonbase.moonscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)             |
 | Harmony                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.harmony.one/address/0xca11bde05977b3631167028862be2a173976ca11?activeTab=7)      |
+| Cronos                  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://cronoscan.com/address/0xca11bde05977b3631167028862be2a173976ca11#code)                    |
 
 If there is a network Multicall3 is not yet deployed on, please open an issue
 with a link to the block explorer. You can speed up the new deploy by sending
