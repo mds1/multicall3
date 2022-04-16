@@ -67,6 +67,8 @@ Multicall3 contains the following improvements over prior multicall contracts:
 | Boba                    | [0xcA11bde05977b3631167028862bE2a173976CA11](https://blockexplorer.boba.network/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)      |
 | Aurora                  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.mainnet.aurora.dev/address/0xcA11bde05977b3631167028862bE2a173976CA11)               |
 | Astar                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://blockscout.com/astar/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)            |
+| OKC                     | [0xcA11bde05977b3631167028862bE2a173976CA11](https://www.oklink.com/en/okc/address/0xca11bde05977b3631167028862be2a173976ca11)                     |
+| Heco Chain              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://hecoinfo.com/address/0xca11bde05977b3631167028862be2a173976ca11#code)                         |
 
 If there is a network Multicall3 is not yet deployed on, please open an issue
 with a link to the block explorer. You can speed up the new deploy by sending
