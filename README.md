@@ -78,7 +78,7 @@ funds to cover the deploy cost to the deployer account: 0x05f32B3cC3888453ff71B0
 ## Historical Deployments
 
 Multicall3 is the recommended version for most use cases, but deployment addresses for
-Multicalll and Multicall2 are retained below for posterity. The Multicall smart contract
+Multicall and Multicall2 are retained below for posterity. The Multicall smart contract
 was originally intended to be used with
 [Multicall.js](https://github.com/makerdao/multicall.js)
 in front-end dapps. However, that library has not been updated to work with Multicall2
