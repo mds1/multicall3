@@ -72,6 +72,8 @@ Multicall3 contains the following improvements over prior multicall contracts:
 | Metis                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://andromeda-explorer.metis.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)     |
 | RSK                     | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.rsk.co/address/0xca11bde05977b3631167028862be2a173976ca11)                           |
 | RSK Testnet             | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.testnet.rsk.co/address/0xca11bde05977b3631167028862be2a173976ca11)                   |
+| Evmos                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://evm.evmos.org/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                   |
+| Evmos Testnet           | [0xcA11bde05977b3631167028862bE2a173976CA11](https://evm.evmos.dev/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                   |
 
 If there is a network Multicall3 is not yet deployed on, please open an issue
 with a link to the block explorer. You can speed up the new deploy by sending
