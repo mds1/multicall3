@@ -74,6 +74,7 @@ Multicall3 contains the following improvements over prior multicall contracts:
 | RSK Testnet             | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.testnet.rsk.co/address/0xca11bde05977b3631167028862be2a173976ca11)                   |
 | Evmos                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://evm.evmos.org/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                   |
 | Evmos Testnet           | [0xcA11bde05977b3631167028862bE2a173976CA11](https://evm.evmos.dev/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                   |
+| Thundercore             | [0xcA11bde05977b3631167028862bE2a173976CA11](https://viewblock.io/thundercore/address/0xca11bde05977b3631167028862be2a173976ca11?tab=code)         |
 
 If there is a network Multicall3 is not yet deployed on, please open an issue
 with a link to the block explorer. You can speed up the new deploy by sending
