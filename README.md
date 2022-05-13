@@ -35,46 +35,47 @@ Multicall3 contains the following improvements over prior multicall contracts:
 - Backwards compatible: it can be dropped in to existing code by simply changing the address
 - Uses the same, memorable deployment address on all networks
 
-| Chain                   | Address                                                                                                                                            |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                         |
-| Kovan                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://kovan.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                   |
-| Rinkeby                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://rinkeby.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                 |
-| Görli                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://goerli.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                  |
-| Ropsten                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://ropsten.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                 |
-| Sepolia                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://sepolia.otterscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11)                      |
-| Optimism                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://optimistic.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)              |
-| Optimism Kovan          | [0xcA11bde05977b3631167028862bE2a173976CA11](https://kovan-optimistic.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)        |
-| Arbitrum                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://arbiscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                          |
-| Arbitrum Rinkeby        | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.arbiscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                  |
-| Polygon                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://polygonscan.com/address/0xca11bde05977b3631167028862be2a173976ca11#code)                      |
-| Mumbai                  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://mumbai.polygonscan.com/address/0xca11bde05977b3631167028862be2a173976ca11#code)               |
-| Gnosis Chain (xDai)     | [0xcA11bde05977b3631167028862bE2a173976CA11](https://blockscout.com/xdai/mainnet/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)     |
-| Avalanche               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://snowtrace.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                         |
-| Avalanche Fuji          | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.snowtrace.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                 |
-| Fantom Testnet          | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.ftmscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                  |
-| Fantom Opera            | [0xcA11bde05977b3631167028862bE2a173976CA11](https://ftmscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                          |
-| BNB Smart Chain         | [0xcA11bde05977b3631167028862bE2a173976CA11](https://bscscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                          |
-| BNB Smart Chain Testnet | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.bscscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                  |
-| Moonbeam                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://moonscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                          |
-| Moonriver               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://moonriver.moonscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                |
-| Moonbase Alpha Testnet  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://moonbase.moonscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                 |
-| Harmony                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.harmony.one/address/0xca11bde05977b3631167028862be2a173976ca11?activeTab=7)          |
-| Cronos                  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://cronoscan.com/address/0xca11bde05977b3631167028862be2a173976ca11#code)                        |
-| Fuse                    | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.fuse.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                |
-| Songbird Canary Network | [0xcA11bde05977b3631167028862bE2a173976CA11](https://songbird-explorer.flare.network/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts) |
-| Coston Testnet          | [0xcA11bde05977b3631167028862bE2a173976CA11](https://coston-explorer.flare.network/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)   |
-| Boba                    | [0xcA11bde05977b3631167028862bE2a173976CA11](https://blockexplorer.boba.network/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)      |
-| Aurora                  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.mainnet.aurora.dev/address/0xcA11bde05977b3631167028862bE2a173976CA11)               |
-| Astar                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://blockscout.com/astar/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)            |
-| OKC                     | [0xcA11bde05977b3631167028862bE2a173976CA11](https://www.oklink.com/en/okc/address/0xca11bde05977b3631167028862be2a173976ca11)                     |
-| Heco Chain              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://hecoinfo.com/address/0xca11bde05977b3631167028862be2a173976ca11#code)                         |
-| Metis                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://andromeda-explorer.metis.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)     |
-| RSK                     | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.rsk.co/address/0xca11bde05977b3631167028862be2a173976ca11)                           |
-| RSK Testnet             | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.testnet.rsk.co/address/0xca11bde05977b3631167028862be2a173976ca11)                   |
-| Evmos                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://evm.evmos.org/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                   |
-| Evmos Testnet           | [0xcA11bde05977b3631167028862bE2a173976CA11](https://evm.evmos.dev/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                   |
-| Thundercore             | [0xcA11bde05977b3631167028862bE2a173976CA11](https://viewblock.io/thundercore/address/0xca11bde05977b3631167028862be2a173976ca11?tab=code)         |
+| Chain                   | Address                                                                                                                                             |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Mainnet                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                          |
+| Kovan                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://kovan.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                    |
+| Rinkeby                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://rinkeby.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                  |
+| Görli                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://goerli.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                   |
+| Ropsten                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://ropsten.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                  |
+| Sepolia                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://sepolia.otterscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11)                       |
+| Optimism                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://optimistic.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)               |
+| Optimism Kovan          | [0xcA11bde05977b3631167028862bE2a173976CA11](https://kovan-optimistic.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)         |
+| Arbitrum                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://arbiscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                           |
+| Arbitrum Rinkeby        | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.arbiscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                   |
+| Polygon                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://polygonscan.com/address/0xca11bde05977b3631167028862be2a173976ca11#code)                       |
+| Mumbai                  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://mumbai.polygonscan.com/address/0xca11bde05977b3631167028862be2a173976ca11#code)                |
+| Gnosis Chain (xDai)     | [0xcA11bde05977b3631167028862bE2a173976CA11](https://blockscout.com/xdai/mainnet/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)      |
+| Avalanche               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://snowtrace.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                          |
+| Avalanche Fuji          | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.snowtrace.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                  |
+| Fantom Testnet          | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.ftmscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                   |
+| Fantom Opera            | [0xcA11bde05977b3631167028862bE2a173976CA11](https://ftmscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                           |
+| BNB Smart Chain         | [0xcA11bde05977b3631167028862bE2a173976CA11](https://bscscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                           |
+| BNB Smart Chain Testnet | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.bscscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                   |
+| Moonbeam                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://moonscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                           |
+| Moonriver               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://moonriver.moonscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                 |
+| Moonbase Alpha Testnet  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://moonbase.moonscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                  |
+| Harmony                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.harmony.one/address/0xca11bde05977b3631167028862be2a173976ca11?activeTab=7)           |
+| Cronos                  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://cronoscan.com/address/0xca11bde05977b3631167028862be2a173976ca11#code)                         |
+| Fuse                    | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.fuse.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                 |
+| Songbird Canary Network | [0xcA11bde05977b3631167028862bE2a173976CA11](https://songbird-explorer.flare.network/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)  |
+| Coston Testnet          | [0xcA11bde05977b3631167028862bE2a173976CA11](https://coston-explorer.flare.network/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)    |
+| Boba                    | [0xcA11bde05977b3631167028862bE2a173976CA11](https://blockexplorer.boba.network/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)       |
+| Aurora                  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.mainnet.aurora.dev/address/0xcA11bde05977b3631167028862bE2a173976CA11)                |
+| Astar                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://blockscout.com/astar/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)             |
+| OKC                     | [0xcA11bde05977b3631167028862bE2a173976CA11](https://www.oklink.com/en/okc/address/0xca11bde05977b3631167028862be2a173976ca11)                      |
+| Heco Chain              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://hecoinfo.com/address/0xca11bde05977b3631167028862be2a173976ca11#code)                          |
+| Metis                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://andromeda-explorer.metis.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)      |
+| RSK                     | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.rsk.co/address/0xca11bde05977b3631167028862be2a173976ca11)                            |
+| RSK Testnet             | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.testnet.rsk.co/address/0xca11bde05977b3631167028862be2a173976ca11)                    |
+| Evmos                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://evm.evmos.org/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                    |
+| Evmos Testnet           | [0xcA11bde05977b3631167028862bE2a173976CA11](https://evm.evmos.dev/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                    |
+| Thundercore             | [0xcA11bde05977b3631167028862bE2a173976CA11](https://viewblock.io/thundercore/address/0xca11bde05977b3631167028862be2a173976ca11?tab=code)          |
+| Thundercore Testnet     | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer-testnet.thundercore.com/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts) |
 
 If there is a network Multicall3 is not yet deployed on, please open an issue
 with a link to the block explorer. You can speed up the new deploy by sending
