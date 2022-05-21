@@ -76,6 +76,8 @@ Multicall3 contains the following improvements over prior multicall contracts:
 | Evmos Testnet           | [0xcA11bde05977b3631167028862bE2a173976CA11](https://evm.evmos.dev/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                    |
 | Thundercore             | [0xcA11bde05977b3631167028862bE2a173976CA11](https://viewblock.io/thundercore/address/0xca11bde05977b3631167028862be2a173976ca11?tab=code)          |
 | Thundercore Testnet     | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer-testnet.thundercore.com/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts) |
+| Oasis                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.emerald.oasis.dev/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)       |
+| Celo                    | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.celo.org/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                |
 
 If there is a network Multicall3 is not yet deployed on, please open an issue
 with a link to the block explorer. You can speed up the new deploy by sending
