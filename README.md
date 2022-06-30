@@ -78,6 +78,7 @@ Multicall3 contains the following improvements over prior multicall contracts:
 | Thundercore Testnet     | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer-testnet.thundercore.com/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts) |
 | Oasis                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.emerald.oasis.dev/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)       |
 | Celo                    | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.celo.org/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                |
+| Godwoken                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://v1.gwscan.com/account/0xca11bde05977b3631167028862be2a173976ca11)                              |
 | Godwoken Testnet        | [0xcA11bde05977b3631167028862bE2a173976CA11](https://gw-explorer.nervosdao.community/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)  |
 
 If there is a network Multicall3 is not yet deployed on, please open an issue
