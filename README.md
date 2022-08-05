@@ -47,6 +47,7 @@ Multicall3 contains the following improvements over prior multicall contracts:
 | Optimism Kovan          | [0xcA11bde05977b3631167028862bE2a173976CA11](https://kovan-optimistic.etherscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                      |
 | Optimism Görli          | [0xcA11bde05977b3631167028862bE2a173976CA11](https://blockscout.com/optimism/goerli/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                |
 | Arbitrum                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://arbiscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                                        |
+| Arbitrum Görli          | [0xcA11bde05977b3631167028862bE2a173976CA11](https://goerli-rollup-explorer.arbitrum.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)            |
 | Arbitrum Rinkeby        | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.arbiscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#code)                                |
 | Polygon                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://polygonscan.com/address/0xca11bde05977b3631167028862be2a173976ca11#code)                                    |
 | Mumbai                  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://mumbai.polygonscan.com/address/0xca11bde05977b3631167028862be2a173976ca11#code)                             |
