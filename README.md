@@ -12,6 +12,7 @@ context so that results from old blocks can be ignored if they're from an
 out-of-date node).
 
 There are three contracts in this repository:
+
 - [`Multicall`](./src/Multicall.sol): The original contract containing an `aggregate` method to batch calls
 - [`Multicall2`](./src/Multicall2.sol): The same as Multicall, but provides additional functions that allow calls within the batch to fail. Useful for situations where a call may fail depending on the state of the contract.
 - [`Multicall3`](./src/Multicall3.sol): **This is the recommended version**. It's ABI is backwards compatible with Multicall and Multicall2, but it's cheaper to use (so you can fit more calls into a single request), and it adds an `aggregate3` method so you can specify whether calls are allowed to fail on a per-call basis. Additionally, it's deployed on every network at the same address.
@@ -22,15 +23,18 @@ Additionally, **make sure you understand how `msg.sender` works when calling vs.
 To learn more about the latter, see [here](https://github.com/runtimeverification/verified-smart-contracts/wiki/List-of-Security-Vulnerabilities#payable-multicall) and [here](https://samczsun.com/two-rights-might-make-a-wrong/).
 
 You can obtain the ABI for the Multicall contracts in the following ways:
+
 - Download the ABI from the [releases](https://github.com/mds1/multicall/releases) page
 - Copy the ABI from [Etherscan](https://etherscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)
-- Install [Foundry](https://github.com/gakonst/foundry/) and run `cast interface <address>`
+- Install [Foundry](https://github.com/gakonst/foundry/) and run `cast interface 0xcA11bde05977b3631167028862bE2a173976CA11`
+- Copy the human-readable ABI [below](#human-readable-abi) for use with [ethers.js](https://github.com/ethers-io/ethers.js/).
 
 ## Deployments
 
 ### Multicall3 Contract Addresses
 
 Multicall3 contains the following improvements over prior multicall contracts:
+
 - Cheaper to use: fit more calls into a single request before hitting the RPC's `eth_call` gas limit
 - Backwards compatible: it can be dropped in to existing code by simply changing the address
 - Uses the same, memorable deployment address on all networks
@@ -159,6 +163,7 @@ curl -L https://foundry.paradigm.xyz | bash
 Then, in a new terminal session or after reloading your `PATH`, run `foundryup` to get the latest `forge` and `cast` binaries.
 
 To learn more about Foundry:
+
 - Visit the [repo](https://github.com/gakonst/foundry)
 - Check out the Foundry [book](https://onbjerg.github.io/foundry-book/)
 - Learn advanced ways to use `foundryup` in the [foundryup package](https://github.com/gakonst/foundry/tree/master/foundryup)
@@ -167,6 +172,7 @@ To learn more about Foundry:
 ### Gas Golfing Tricks and Optimizations
 
 Below is a list of some of the optimizations used by Multicall3's `aggregate3` and `aggregate3Value` methods:
+
 - In for loops, array length is cached to avoid reading the length on each loop iteration
 - In for loops, the counter is incremented within an `unchecked` block
 - In for loops, the counter is incremented with the prefix increment (`++i`) instead of a postfix increment (`i++`)
@@ -179,5 +185,33 @@ Below is a list of some of the optimizations used by Multicall3's `aggregate3` a
 - The value accumulator in `aggregate3Value` is within an `unchecked` block
 
 Read more about Solidity gas optimization tips:
+
 - [Generic writeup about common gas optimizations, etc.](https://gist.github.com/hrkrshnn/ee8fabd532058307229d65dcd5836ddc) by [Harikrishnan Mulackal](https://twitter.com/_hrkrshnn)
 - [Yul (and Some Solidity) Optimizations and Tricks](https://hackmd.io/@gn56kcRBQc6mOi7LCgbv1g/rJez8O8st) by [ControlCplusControlV](https://twitter.com/controlcthenv)
+
+## Human-Readable ABI
+
+Below is the human-readable ABI.
+This can be directly passed into an ethers.js `Contract` or `Interface` constructor.
+
+```typescript
+const MULTICALL_ABI = [
+  // https://github.com/mds1/multicall
+  'function aggregate(tuple(address target, bytes callData)[] calls) payable returns (uint256 blockNumber, bytes[] returnData)',
+  'function aggregate3(tuple(address target, bool allowFailure, bytes callData)[] calls) payable returns (tuple(bool success, bytes returnData)[] returnData)',
+  'function aggregate3Value(tuple(address target, bool allowFailure, uint256 value, bytes callData)[] calls) payable returns (tuple(bool success, bytes returnData)[] returnData)',
+  'function blockAndAggregate(tuple(address target, bytes callData)[] calls) payable returns (uint256 blockNumber, bytes32 blockHash, tuple(bool success, bytes returnData)[] returnData)',
+  'function getBasefee() view returns (uint256 basefee)',
+  'function getBlockHash(uint256 blockNumber) view returns (bytes32 blockHash)',
+  'function getBlockNumber() view returns (uint256 blockNumber)',
+  'function getChainId() view returns (uint256 chainid)',
+  'function getCurrentBlockCoinbase() view returns (address coinbase)',
+  'function getCurrentBlockDifficulty() view returns (uint256 difficulty)',
+  'function getCurrentBlockGasLimit() view returns (uint256 gaslimit)',
+  'function getCurrentBlockTimestamp() view returns (uint256 timestamp)',
+  'function getEthBalance(address addr) view returns (uint256 balance)',
+  'function getLastBlockHash() view returns (bytes32 blockHash)',
+  'function tryAggregate(bool requireSuccess, tuple(address target, bytes callData)[] calls) payable returns (tuple(bool success, bytes returnData)[] returnData)',
+  'function tryBlockAndAggregate(bool requireSuccess, tuple(address target, bytes callData)[] calls) payable returns (uint256 blockNumber, bytes32 blockHash, tuple(bool success, bytes returnData)[] returnData)',
+];
+```
