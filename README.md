@@ -35,9 +35,9 @@ You can obtain the ABI for the Multicall contracts in the following ways:
 
 Multicall3 contains the following improvements over prior multicall contracts:
 
-- Cheaper to use: fit more calls into a single request before hitting the RPC's `eth_call` gas limit
-- Backwards compatible: it can be dropped in to existing code by simply changing the address
-- Uses the same, memorable deployment address on all networks
+- Cheaper to use: fit more calls into a single request before hitting the RPC's `eth_call` gas limit.
+- Backwards compatible: it can be dropped in to existing code by simply changing the address.
+- Uses the same, memorable deployment address on all 50 networks it's deployed to.
 
 | Chain                   | Address                                                                                                                                                          |
 | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -90,6 +90,7 @@ Multicall3 contains the following improvements over prior multicall contracts:
 | Klatyn                  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://scope.klaytn.com/account/0xca11bde05977b3631167028862be2a173976ca11)                                        |
 | Milkomeda               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer-mainnet-cardano-evm.c1.milkomeda.com/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts) |
 | KCC                     | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.kcc.io/en/address/0xca11bde05977b3631167028862be2a173976ca11)                                      |
+| Velas                   | [0xcA11bde05977b3631167028862bE2a173976CA11](https://evmexplorer.velas.com/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                         |
 
 If there is a network Multicall3 is not yet deployed on, please open an issue
 with a link to the block explorer. You can speed up the new deploy by sending
