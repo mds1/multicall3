@@ -85,12 +85,14 @@ Multicall3 contains the following improvements over prior multicall contracts:
 | Thundercore Testnet     | 18                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer-testnet.thundercore.com/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)              |
 | Oasis                   | 42262                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.emerald.oasis.dev/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                    |
 | Celo                    | 42220                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.celo.org/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                             |
+| Celo Alfajores Testnet  | 44787                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.celo.org/alfajores/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                   |
 | Godwoken                | 71402                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://v1.gwscan.com/account/0xca11bde05977b3631167028862be2a173976ca11)                                           |
 | Godwoken Testnet        | 71401                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://gw-explorer.nervosdao.community/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)               |
 | Klaytn                  | 8217                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://scope.klaytn.com/account/0xca11bde05977b3631167028862be2a173976ca11)                                        |
 | Milkomeda               | 2001                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer-mainnet-cardano-evm.c1.milkomeda.com/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts) |
 | KCC                     | 321                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.kcc.io/en/address/0xca11bde05977b3631167028862be2a173976ca11)                                      |
 | Velas                   | 106                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://evmexplorer.velas.com/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                         |
+| Telos                   | 40                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://www.teloscan.io/address/0xca11bde05977b3631167028862be2a173976ca11#contract)                                |
 
 If there is a network Multicall3 is not yet deployed on, please open an issue
 with a link to the block explorer. You can speed up the new deploy by sending
