@@ -13,7 +13,7 @@ contract MulticallTest is DSTestPlus {
     callee = new MockCallee();
   }
 
-  function testSuccessfulAggregation() public {
+  function test_aggregation_with_success() public {
     Multicall.Call[] memory calls = new Multicall.Call[](1);
     calls[0] = Multicall.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
     (Multicall.Result[] memory returnData) = multicall.aggregate(calls);
@@ -21,11 +21,20 @@ contract MulticallTest is DSTestPlus {
     assertEq(keccak256(returnData[0].returnData), keccak256(abi.encodePacked(blockhash(block.number))));
   }
 
-  function testAggregationWithReversal() public {
+  function test_aggregation_fail_when_one_of_calls_failed() public {
     Multicall.Call[] memory calls = new Multicall.Call[](2);
     calls[0] = Multicall.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
     calls[1] = Multicall.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
     vm.expectRevert(bytes("Multicall: call failed"));
+    multicall.aggregate(calls);
+  }
+
+  function test_aggregation_fail_when_not_owner() public {
+    Multicall.Call[] memory calls = new Multicall.Call[](1);
+    calls[0] = Multicall.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
+    (Multicall.Result[] memory returnData) = multicall.aggregate(calls);
+    vm.prank(address(0));
+    vm.expectRevert(bytes("Ownable: caller is not the owner"));
     multicall.aggregate(calls);
   }
 }
