@@ -3,9 +3,7 @@ name: Tests
 on:
   push:
     branches:
-      - master
-    tags:
-      - 'v*.*.*'
+      - 'main'
   pull_request:
 
 jobs:
@@ -32,5 +30,3 @@ jobs:
           name: ABIs
           files: | 
             ./out/Multicall.sol/Multicall.json
-            ./out/Multicall2.sol/Multicall2.json
-            ./out/Multicall3.sol/Multicall3.json
