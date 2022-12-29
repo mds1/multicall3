@@ -17,6 +17,7 @@ fuzz_runs = 1_000
 remappings = [
   "@ds=lib/ds-test/src/",
   "@std=lib/forge-std/src/",
+  "@openzeppelin=lib/openzeppelin-contracts/",
 ]
 
 # Extreme Fuzzing CI Profile :P

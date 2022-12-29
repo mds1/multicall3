@@ -1,6 +1,8 @@
 pragma solidity 0.8.17;
 
-contract Multicall {
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract Multicall is Ownable {
     struct Call {
         address target;
         bytes callData;
@@ -11,7 +13,7 @@ contract Multicall {
         bytes returnData;
     }
 
-    function aggregate(Call[] calldata calls) public payable returns (Result[] memory returnData) {
+    function aggregate(Call[] calldata calls) public payable onlyOwner returns (Result[] memory returnData) {
         uint256 length = calls.length;
         returnData = new Result[](length);
         Call calldata call;
