@@ -25,7 +25,7 @@ contract MulticallTest is DSTestPlus {
     Multicall.Call[] memory calls = new Multicall.Call[](2);
     calls[0] = Multicall.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
     calls[1] = Multicall.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
-    vm.expectRevert(bytes("Multicall: call failed"));
+    vm.expectRevert(bytes("Multicall: aggregate failed with call: 1"));
     multicall.aggregate(calls);
   }
 

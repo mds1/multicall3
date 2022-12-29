@@ -1,6 +1,7 @@
 pragma solidity 0.8.17;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract Multicall is Ownable {
     struct Call {
@@ -21,7 +22,7 @@ contract Multicall is Ownable {
             Result memory result = returnData[i];
             call = calls[i];
             (result.success, result.returnData) = call.target.call(call.callData);
-            require(result.success, "Multicall: call failed");
+            require(result.success, string.concat("Multicall: aggregate failed with call: ", Strings.toString(i)));
             unchecked { ++i; }
         }
     }
