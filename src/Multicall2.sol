@@ -1,21 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.12;
 
+import {IMulticall2} from "./interfaces/IMulticall2.sol";
+
 /// @title Multicall2 - Aggregate results from multiple read-only function calls
 /// @author Michael Elliot <mike@makerdao.com>
 /// @author Joshua Levine <joshua@makerdao.com>
 /// @author Nick Johnson <arachnid@notdot.net>
-contract Multicall2 {
-    struct Call {
-        address target;
-        bytes callData;
-    }
-
-    struct Result {
-        bool success;
-        bytes returnData;
-    }
-
+contract Multicall2 is IMulticall2 {
     function aggregate(Call[] calldata calls) public returns (uint256 blockNumber, bytes[] memory returnData) {
         blockNumber = block.number;
         returnData = new bytes[](calls.length);
