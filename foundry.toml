@@ -21,4 +21,4 @@ remappings = [
 
 # Extreme Fuzzing CI Profile :P
 [profile.ci]
-fuzz_runs = 100_000
+fuzz = { runs = 100_000 }
