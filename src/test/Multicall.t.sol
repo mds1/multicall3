@@ -2,7 +2,6 @@
 pragma solidity 0.8.12;
 
 import {Multicall} from "../Multicall.sol";
-import {IMulticall} from "../interfaces/IMulticall.sol";
 import {DSTestPlus} from "./utils/DSTestPlus.sol";
 import {MockCallee} from "./mocks/MockCallee.sol";
 
@@ -20,8 +19,8 @@ contract MulticallTest is DSTestPlus {
 
   function testAggregation() public {
     // Test successful call
-    IMulticall.Call[] memory calls = new IMulticall.Call[](1);
-    calls[0] = IMulticall.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
+    Multicall.Call[] memory calls = new Multicall.Call[](1);
+    calls[0] = Multicall.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
     (uint256 blockNumber, bytes[] memory returnData) = multicall.aggregate(calls);
     assertEq(blockNumber, block.number);
     assertEq(keccak256(returnData[0]), keccak256(abi.encodePacked(blockhash(block.number))));
@@ -29,12 +28,12 @@ contract MulticallTest is DSTestPlus {
 
   function testUnsuccessulAggregation() public {
     // Test unexpected revert
-    IMulticall.Call[] memory calls = new IMulticall.Call[](2);
-    calls[0] = IMulticall.Call(
+    Multicall.Call[] memory calls = new Multicall.Call[](2);
+    calls[0] = Multicall.Call(
         address(callee),
         abi.encodeWithSignature("getBlockHash(uint256)", block.number)
     );
-    calls[1] = IMulticall.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()")
+    calls[1] = Multicall.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()")
     );
     vm.expectRevert(bytes(""));
     multicall.aggregate(calls);

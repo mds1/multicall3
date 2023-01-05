@@ -2,7 +2,6 @@
 pragma solidity 0.8.12;
 
 import {Multicall2} from "../Multicall2.sol";
-import {IMulticall2} from "../interfaces/IMulticall2.sol";
 import {DSTestPlus} from "./utils/DSTestPlus.sol";
 import {MockCallee} from "./mocks/MockCallee.sol";
 
@@ -20,8 +19,8 @@ contract Multicall2Test is DSTestPlus {
 
   function testAggregation() public {
     // Test successful call
-    IMulticall2.Call[] memory calls = new IMulticall2.Call[](1);
-    calls[0] = IMulticall2.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
+    Multicall2.Call[] memory calls = new Multicall2.Call[](1);
+    calls[0] = Multicall2.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
     (uint256 blockNumber, bytes[] memory returnData) = multicall.aggregate(calls);
     assertEq(blockNumber, block.number);
     assertEq(keccak256(returnData[0]), keccak256(abi.encodePacked(blockhash(block.number))));
@@ -29,9 +28,9 @@ contract Multicall2Test is DSTestPlus {
 
   function testUnsuccessulAggregation() public {
     // Test unexpected revert
-    IMulticall2.Call[] memory calls = new IMulticall2.Call[](2);
-    calls[0] = IMulticall2.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
-    calls[1] = IMulticall2.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
+    Multicall2.Call[] memory calls = new Multicall2.Call[](2);
+    calls[0] = Multicall2.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
+    calls[1] = Multicall2.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
     vm.expectRevert(bytes("Multicall aggregate: call failed"));
     multicall.aggregate(calls);
   }
@@ -39,9 +38,9 @@ contract Multicall2Test is DSTestPlus {
   /// >>>>>>>>>>>>>>>>>>>  TRY AGGREGATE TESTS  <<<<<<<<<<<<<<<<<<< ///
 
   function testTryAggregate() public {
-    IMulticall2.Call[] memory calls = new IMulticall2.Call[](2);
-    calls[0] = IMulticall2.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
-    calls[1] = IMulticall2.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
+    Multicall2.Call[] memory calls = new Multicall2.Call[](2);
+    calls[0] = Multicall2.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
+    calls[1] = Multicall2.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
     (Multicall2.Result[] memory returnData) = multicall.tryAggregate(false, calls);
     assertTrue(returnData[0].success);
     assertEq(keccak256(returnData[0].returnData), keccak256(abi.encodePacked(blockhash(block.number))));
@@ -49,9 +48,9 @@ contract Multicall2Test is DSTestPlus {
   }
 
   function testTryAggregateUnsuccessful() public {
-    IMulticall2.Call[] memory calls = new IMulticall2.Call[](2);
-    calls[0] = IMulticall2.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
-    calls[1] = IMulticall2.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
+    Multicall2.Call[] memory calls = new Multicall2.Call[](2);
+    calls[0] = Multicall2.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
+    calls[1] = Multicall2.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
     vm.expectRevert(bytes("Multicall2 aggregate: call failed"));
     multicall.tryAggregate(true, calls);
   }
@@ -59,9 +58,9 @@ contract Multicall2Test is DSTestPlus {
   /// >>>>>>>>>>>>>>  TRY BLOCK AND AGGREGATE TESTS  <<<<<<<<<<<<<< ///
 
   function testTryBlockAndAggregate() public {
-    IMulticall2.Call[] memory calls = new IMulticall2.Call[](2);
-    calls[0] = IMulticall2.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
-    calls[1] = IMulticall2.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
+    Multicall2.Call[] memory calls = new Multicall2.Call[](2);
+    calls[0] = Multicall2.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
+    calls[1] = Multicall2.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
     (uint256 blockNumber, bytes32 blockHash, Multicall2.Result[] memory returnData) = multicall.tryBlockAndAggregate(false, calls);
     assertEq(blockNumber, block.number);
     assertEq(blockHash, blockhash(block.number));
@@ -71,17 +70,17 @@ contract Multicall2Test is DSTestPlus {
   }
 
   function testTryBlockAndAggregateUnsuccessful() public {
-    IMulticall2.Call[] memory calls = new IMulticall2.Call[](2);
-    calls[0] = IMulticall2.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
-    calls[1] = IMulticall2.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
+    Multicall2.Call[] memory calls = new Multicall2.Call[](2);
+    calls[0] = Multicall2.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
+    calls[1] = Multicall2.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
     vm.expectRevert(bytes("Multicall2 aggregate: call failed"));
     multicall.tryBlockAndAggregate(true, calls);
   }
 
   function testBlockAndAggregateUnsuccessful() public {
-    IMulticall2.Call[] memory calls = new IMulticall2.Call[](2);
-    calls[0] = IMulticall2.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
-    calls[1] = IMulticall2.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
+    Multicall2.Call[] memory calls = new Multicall2.Call[](2);
+    calls[0] = Multicall2.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
+    calls[1] = Multicall2.Call(address(callee), abi.encodeWithSignature("thisMethodReverts()"));
     vm.expectRevert(bytes("Multicall2 aggregate: call failed"));
     multicall.blockAndAggregate(calls);
   }
