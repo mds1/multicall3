@@ -2,8 +2,8 @@
 pragma solidity 0.8.12;
 
 import {Multicall2} from "../Multicall2.sol";
-import {DSTestPlus} from "./utils/DSTestPlus.sol";
 import {MockCallee} from "./mocks/MockCallee.sol";
+import {DSTestPlus} from "./utils/DSTestPlus.sol";
 
 contract Multicall2Test is DSTestPlus {
   Multicall2 multicall;
@@ -26,7 +26,7 @@ contract Multicall2Test is DSTestPlus {
     assertEq(keccak256(returnData[0]), keccak256(abi.encodePacked(blockhash(block.number))));
   }
 
-  function testUnsuccessulAggregation() public {
+  function testUnsuccessfulAggregation() public {
     // Test unexpected revert
     Multicall2.Call[] memory calls = new Multicall2.Call[](2);
     calls[0] = Multicall2.Call(address(callee), abi.encodeWithSignature("getBlockHash(uint256)", block.number));
