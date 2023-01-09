@@ -2,8 +2,8 @@
 pragma solidity 0.8.12;
 
 import {Multicall} from "../Multicall.sol";
-import {DSTestPlus} from "./utils/DSTestPlus.sol";
 import {MockCallee} from "./mocks/MockCallee.sol";
+import {DSTestPlus} from "./utils/DSTestPlus.sol";
 
 contract MulticallTest is DSTestPlus {
   Multicall multicall;
@@ -26,7 +26,7 @@ contract MulticallTest is DSTestPlus {
     assertEq(keccak256(returnData[0]), keccak256(abi.encodePacked(blockhash(block.number))));
   }
 
-  function testUnsuccessulAggregation() public {
+  function testUnsuccessfulAggregation() public {
     // Test unexpected revert
     Multicall.Call[] memory calls = new Multicall.Call[](2);
     calls[0] = Multicall.Call(
