@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.5.0 <0.9.0;
 
+pragma experimental ABIEncoderV2;
+
 interface IMulticall2 {
     struct Call {
         address target;
@@ -12,9 +14,9 @@ interface IMulticall2 {
         bytes returnData;
     }
 
-    function aggregate(Call[] memory calls) external returns (uint256 blockNumber, bytes[] memory returnData);
+    function aggregate(Call[] calldata calls) external returns (uint256 blockNumber, bytes[] memory returnData);
 
-    function blockAndAggregate(Call[] memory calls)
+    function blockAndAggregate(Call[] calldata calls)
         external
         returns (uint256 blockNumber, bytes32 blockHash, Result[] memory returnData);
 
@@ -34,9 +36,9 @@ interface IMulticall2 {
 
     function getLastBlockHash() external view returns (bytes32 blockHash);
 
-    function tryAggregate(bool requireSuccess, Call[] memory calls) external returns (Result[] memory returnData);
+    function tryAggregate(bool requireSuccess, Call[] calldata calls) external returns (Result[] memory returnData);
     
-    function tryBlockAndAggregate(bool requireSuccess, Call[] memory calls)
+    function tryBlockAndAggregate(bool requireSuccess, Call[] calldata calls)
         external
         returns (uint256 blockNumber, bytes32 blockHash, Result[] memory returnData);
 }

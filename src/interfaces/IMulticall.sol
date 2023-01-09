@@ -1,13 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.5.0 <0.9.0;
 
+pragma experimental ABIEncoderV2;
+
 interface IMulticall {
     struct Call {
         address target;
         bytes callData;
     }
 
-    function aggregate(Call[] memory calls)
+    function aggregate(Call[] calldata calls)
         external
         returns (uint256 blockNumber, bytes[] memory returnData);
 
