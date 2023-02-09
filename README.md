@@ -37,7 +37,7 @@ Multicall3 contains the following improvements over prior multicall contracts:
 
 - Cheaper to use: fit more calls into a single request before hitting the RPC's `eth_call` gas limit.
 - Backwards compatible: it can be dropped in to existing code by simply changing the address.
-- Uses the same, memorable deployment address on all 50 networks it's deployed to.
+- Uses the same, memorable deployment address on the 50+ networks it's deployed to.
 
 | Chain                   | [Chain ID](https://chainlist.org/) | Address                                                                                                                                                          |
 | ----------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -219,5 +219,5 @@ const MULTICALL_ABI = [
   'function getLastBlockHash() view returns (bytes32 blockHash)',
   'function tryAggregate(bool requireSuccess, tuple(address target, bytes callData)[] calls) payable returns (tuple(bool success, bytes returnData)[] returnData)',
   'function tryBlockAndAggregate(bool requireSuccess, tuple(address target, bytes callData)[] calls) payable returns (uint256 blockNumber, bytes32 blockHash, tuple(bool success, bytes returnData)[] returnData)',
-]
+];
 ```
