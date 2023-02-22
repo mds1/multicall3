@@ -99,6 +99,9 @@ Multicall3 contains the following improvements over prior multicall contracts:
 | Canto                   | 7700                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://evm.explorer.canto.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs)            |
 | Iotex                   | 4689                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://iotexscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#transactions)                               |
 | Bitgert                 | 32520                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://brisescan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                                 |
+| Kava                    | 2222                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.kava.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                              |
+| Mantle Testnet          | 5001                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.testnet.mantle.xyz/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs)      |
+| Shardeum Sphinx         | 8082                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.testnet.mantle.xyz/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs)      |
 
 If there is a network Multicall3 is not yet deployed on, please open an issue
 with a link to the block explorer. You can speed up the new deploy by sending
