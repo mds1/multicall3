@@ -15,7 +15,6 @@ optimizer_runs = 10_000_000
 fuzz = { runs = 1_000 }
 # Configure remappings
 remappings = [
-  "@ds=lib/ds-test/src/",
   "@std=lib/forge-std/src/",
 ]
 

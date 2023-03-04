@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.12;
 
+import {Test} from "@std/Test.sol";
+
 import {Multicall3} from "../Multicall3.sol";
 import {MockCallee} from "./mocks/MockCallee.sol";
 import {EtherSink} from "./mocks/EtherSink.sol";
-import {DSTestPlus} from "./utils/DSTestPlus.sol";
 
-contract Multicall3Test is DSTestPlus {
+contract Multicall3Test is Test {
   Multicall3 multicall;
   MockCallee callee;
   EtherSink etherSink;
