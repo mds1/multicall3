@@ -13,10 +13,6 @@ optimizer = true
 optimizer_runs = 10_000_000
 # Fuzz more than the default 256
 fuzz = { runs = 1_000 }
-# Configure remappings
-remappings = [
-  "@std=lib/forge-std/src/",
-]
 
 # Extreme Fuzzing CI Profile :P
 [profile.ci]

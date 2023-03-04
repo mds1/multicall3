@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.12;
 
-import {Test} from "@std/Test.sol";
-
+import {Test} from "forge-std/Test.sol";
 import {Multicall3} from "../Multicall3.sol";
 import {MockCallee} from "./mocks/MockCallee.sol";
 import {EtherSink} from "./mocks/EtherSink.sol";
