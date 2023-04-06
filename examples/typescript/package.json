@@ -1,0 +1,16 @@
+{
+  "name": "multicall3-typescript-examples",
+  "dependencies": {
+    "ethers": "^6.2.3",
+    "viem": "^0.1.26",
+    "wagmi": "^0.12.8"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.3"
+  },
+  "volta": {
+    "node": "18.15.0",
+    "yarn": "1.22.19"
+  }
+}
