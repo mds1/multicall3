@@ -108,6 +108,7 @@ Multicall3 contains the following improvements over prior multicall contracts:
 | DFK Chain Test          | 335                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://subnets-test.avax.network/defi-kingdoms/address/0xcA11bde05977b3631167028862bE2a173976CA11)                 |
 | DFK Chain               | 53935                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://subnets.avax.network/defi-kingdoms/address/0xcA11bde05977b3631167028862bE2a173976CA11)                      |
 | Neon EVM DevNet         | 245022926                          | [0xcA11bde05977b3631167028862bE2a173976CA11](https://devnet.neonscan.org/address/0xcA11bde05977b3631167028862bE2a173976CA11#contract)                            |
+| Linea Goerli Testnet    | 59140                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.goerli.linea.build/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs)      |
 
 If there is a network Multicall3 is not yet deployed on, please open an issue
 with a link to the block explorer. You can speed up the new deploy by sending
