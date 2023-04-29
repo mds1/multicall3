@@ -7,7 +7,7 @@
  *    `aggregate3` method to support reverting calls.
  */
 import { Contract, Interface, JsonRpcProvider, namehash } from 'ethers';
-import { MULTICALL_ADDRESS, MULTICALL_ABI, ERC20_ABI } from './constants';
+import { MULTICALL_ADDRESS, MULTICALL_ABI_ETHERS, ERC20_ABI } from './constants';
 
 // ==============================
 // ======== Shared Setup ========
@@ -18,7 +18,7 @@ if (!MAINNET_RPC_URL) throw new Error('Please set the MAINNET_RPC_URL environmen
 const provider = new JsonRpcProvider(MAINNET_RPC_URL);
 
 // Get Multicall contract instance.
-const multicall = new Contract(MULTICALL_ADDRESS, MULTICALL_ABI, provider);
+const multicall = new Contract(MULTICALL_ADDRESS, MULTICALL_ABI_ETHERS, provider);
 
 // ===========================
 // ======== Example 1 ========
