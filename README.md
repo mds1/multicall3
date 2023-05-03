@@ -81,6 +81,7 @@ Multicall3 contains the following improvements over prior multicall contracts:
 | OKC                       | 66                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://www.oklink.com/en/okc/address/0xcA11bde05977b3631167028862bE2a173976CA11)                                   |
 | Heco Chain                | 128                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://hecoinfo.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                                       |
 | Metis                     | 1088                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://andromeda-explorer.metis.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                   |
+| Metis Goerli              | 599                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://goerli.explorer.metisdevops.link/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs) |
 | RSK                       | 30                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.rsk.co/address/0xcA11bde05977b3631167028862bE2a173976CA11)                                         |
 | RSK Testnet               | 31                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.testnet.rsk.co/address/0xcA11bde05977b3631167028862bE2a173976CA11)                                 |
 | Evmos                     | 9001                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://evm.evmos.org/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                                 |
@@ -113,6 +114,7 @@ Multicall3 contains the following improvements over prior multicall contracts:
 | Syscoin                   | 57                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.syscoin.org/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs)             |
 | Syscoin Tannebaum Testnet | 5700                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://tanenbaum.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs)                     |
 | Syscoin Tannebaum Rollux  | 57000                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://rollux.tanenbaum.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs)              |
+| Pulsechain v4 Testnet     | 943                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://scan.v4.testnet.pulsechain.com/address/0xcA11bde05977b3631167028862bE2a173976CA11)                          |
 
 If there is a network Multicall3 is not yet deployed on, please open an issue
 with a link to the block explorer. You can speed up the new deploy by sending
