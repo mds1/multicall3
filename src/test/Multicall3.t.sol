@@ -91,13 +91,25 @@ contract Multicall3Test is Test {
   /// >>>>>>>>>>>>>>>>>>>  AGGREGATE3 TESTS  <<<<<<<<<<<<<<<<<<<<<< ///
 
   function testAggregate3() public {
-    Multicall3.Call3[] memory calls = new Multicall3.Call3[](2);
+    Multicall3.Call3[] memory calls = new Multicall3.Call3[](3);
     calls[0] = Multicall3.Call3(address(callee), false, abi.encodeWithSignature("getBlockHash(uint256)", block.number));
     calls[1] = Multicall3.Call3(address(callee), true, abi.encodeWithSignature("thisMethodReverts()"));
+    calls[2] = Multicall3.Call3(address(multicall), true, abi.encodeWithSignature("getCurrentBlockTimestamp()"));
     (Multicall3.Result[] memory returnData) = multicall.aggregate3(calls);
+
+    // Call 1.
     assertTrue(returnData[0].success);
+    assertEq(blockhash(block.number), abi.decode(returnData[0].returnData, (bytes32)));
     assertEq(keccak256(returnData[0].returnData), keccak256(abi.encodePacked(blockhash(block.number))));
+
+    // Call 2.
     assertTrue(!returnData[1].success);
+    assertEq(returnData[1].returnData.length, 4);
+    assertEq(bytes4(returnData[1].returnData), bytes4(keccak256("Unsuccessful()")));
+
+    // Call 3.
+    assertTrue(returnData[2].success);
+    assertEq(abi.decode(returnData[2].returnData, (uint256)), block.timestamp);
   }
 
   function testAggregate3Unsuccessful() public {
