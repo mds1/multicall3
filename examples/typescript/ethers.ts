@@ -133,7 +133,7 @@ async function example2() {
 
   // Execute those calls.
   console.log('nameCalls:', nameCalls);
-  const nameResults: Aggregate3Response[] = await multicall.aggregate3.staticCall(nameCalls);
+  const nameResults: Aggregate3Response[] = await multicall.aggregate3.staticCall(nameCalls); /// TODO this fails on v6, use v5?
 
   // // Decode the responses.
   // const names = nameResults.map(({ success, returnData }, i) => {
