@@ -1,0 +1,7 @@
+comment_width = 100
+imports_granularity = "Crate"
+max_width = 100
+trailing_semicolon = false
+use_field_init_shorthand = true
+use_small_heuristics = "Max"
+wrap_comments = true
