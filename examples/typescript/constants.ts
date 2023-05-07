@@ -9,7 +9,6 @@ export const MULTICALL_ADDRESS = '0xcA11bde05977b3631167028862bE2a173976CA11';
 import { parseAbi } from 'viem';
 export const MULTICALL_ABI = [
   // https://github.com/mds1/multicall
-  // 'function aggregate((address target, bytes callData)[] calls) payable returns (uint256 blockNumber, bytes[] returnData)',
   'struct Call { address target; bytes callData; }',
   'struct Call3 { address target; bool allowFailure; bytes callData; }',
   'struct Call3Value { address target; bool allowFailure; uint256 value; bytes callData; }',
