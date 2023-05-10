@@ -69,4 +69,4 @@ export const ERC20_ABI = [
   'function totalSupply() view returns (uint256)',
   'function transfer(address to, uint256 value) returns (bool)',
   'function transferFrom(address from, address to, uint256 value) returns (bool)',
-];
+] as const;
