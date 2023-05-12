@@ -1,18 +1,17 @@
 /**
- * @notice Multicall3 example using ethers.js v6: https://docs.ethers.org/v6/. It has no native Multicall3
- * support, so we use the ABI directly. There are two examples:
- *   - Example 1 shows how to query for ETH and multiple token balances for a user in a single call.
- *     It uses the `aggregate` method, which reverts if any call reverts.
- *   - Example 2 shows how to reverse resolve ENS names for a list of addresses. It uses the
- *    `aggregate3` method to support reverting calls.
+ * @notice ethers.js (https://docs.ethers.org/v6/) does not have native Multicall3 support so this
+ * example shows how to interact with the contract directly. This example shows how to reverse
+ * resolve ENS names for a list of addresses. It uses the `aggregate3` method to support reverting
+ * calls. To run the example:
+ *   - Install dependencies with `pnpm install`
+ *   - Run `pnpm ts-node ethers.ts`
+ *
+ * You can replace `pnpm` with the node package manager of your choice.
  */
 import { Contract, Interface, JsonRpcProvider, namehash } from 'ethers';
-import { MULTICALL_ADDRESS, MULTICALL_ABI_ETHERS, ERC20_ABI } from './constants';
+import { MULTICALL_ADDRESS, MULTICALL_ABI_ETHERS } from './constants';
 
-// ==============================
-// ======== Shared Setup ========
-// ==============================
-// Setup the provider.
+// Setup the provider (in viem, this is called a client).
 const MAINNET_RPC_URL = process.env.MAINNET_RPC_URL;
 if (!MAINNET_RPC_URL) throw new Error('Please set the MAINNET_RPC_URL environment variable.');
 const provider = new JsonRpcProvider(MAINNET_RPC_URL);
@@ -20,70 +19,11 @@ const provider = new JsonRpcProvider(MAINNET_RPC_URL);
 // Get Multicall contract instance.
 const multicall = new Contract(MULTICALL_ADDRESS, MULTICALL_ABI_ETHERS, provider);
 
-// ===========================
-// ======== Example 1 ========
-// ===========================
-// Query for ETH and multiple token balances for a user in a single call, using the `aggregate`
-// method, which reverts if any call reverts.
-async function example1() {
-  // Define some data.
-  const user = '0x5777d92f208679DB4b9778590Fa3CAB3aC9e2168'; // Uniswap V3 DAI/USDC 0.01% pool.
-  const tokens = [
-    { name: 'DAI', address: '0x6B175474E89094C44Da98b954EedeAC495271d0F' },
-    { name: 'DAI', address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48' },
-  ];
-
-  // Setup the calls.
-  const tokenBalanceCalls = tokens.map((token) => {
-    const tokenInterface = new Interface(ERC20_ABI);
-    return {
-      target: token.address,
-      callData: tokenInterface.encodeFunctionData('balanceOf', [user]),
-    };
-  });
-
-  const ethBalanceCall = {
-    target: MULTICALL_ADDRESS,
-    callData: multicall.interface.encodeFunctionData('getEthBalance', [user]),
-  };
-
-  const calls = [...tokenBalanceCalls, ethBalanceCall];
-
-  // Execute the calls. Here we use `aggregate`, which reverts if any call
-  // reverts. You can also use `tryAggregate` to allow calls to revert, or
-  // `aggregate3` to set whether calls should revert on a per-call basis. Note
-  // that these methods will have different return types, so you'll need to adjust
-  // the code accordingly.
-
-  // Execute the call.
-  type AggregateResponse = [bigint /* block number */, string[] /* return data */];
-  const [blockNumber, data] = <AggregateResponse>await multicall.aggregate.staticCall(calls);
-  console.log(`Data from block ${blockNumber}`);
-
-  // Decode the results.
-  data.forEach((callData, i) => {
-    // We know the first two calls are the tokens, and the last is ETH.
-    if (i < tokens.length) {
-      const tokenInterface = new Interface(ERC20_ABI);
-      const balance = tokenInterface.decodeFunctionResult('balanceOf', callData)[0];
-      console.log(`  ${tokens[i].name} balance: ${balance}`);
-    } else {
-      const balance = multicall.interface.decodeFunctionResult('getEthBalance', callData)[0];
-      console.log(`  ETH balance: ${balance}`);
-    }
-  });
-}
-
-example1().catch(console.error);
-
-// ===========================
-// ======== Example 2 ========
-// ===========================
 // Reverse resolve ENS names for a list of addresses using the `aggregate3` method to support
 // reverting calls. The process shown here for reverse resolving ENS names is based on:
 //   https://github.com/ethers-io/ethers.js/blob/0802b70a724321f56d4c170e4c8a46b7804dfb48/src.ts/providers/abstract-provider.ts#L976
-async function example2() {
-  // Define some data.
+async function example1() {
+  // Define some users.
   const users = [
     '0x8700B87C2A053BDE8Cdc84d5078B4AE47c127FeB',
     '0x9EAB9D856a3a667dc4CD10001D59c679C64756E7',
@@ -124,25 +64,26 @@ async function example2() {
 
   // CALL 2: Get the name for each account.
   // First we prepare the calls.
-  console.log('resolverAddrs:', resolverAddrs);
   const nameCalls = resolverAddrs.map((resolverAddr, i) => ({
     target: resolverAddr,
-    allowFailure: true, // We allow failure for all calls.
+    allowFailure: false, // We allow failure for all calls.
     callData: resolverInterface.encodeFunctionData('name', [nodes[i]]),
   }));
 
   // Execute those calls.
+  // TODO This call fails. It seems to be payload specific though, e.g. if I replace `nameCalls`
+  // with `resolverCalls` it works. See https://github.com/ethers-io/ethers.js/issues/3953.
   console.log('nameCalls:', nameCalls);
-  const nameResults: Aggregate3Response[] = await multicall.aggregate3.staticCall(nameCalls); /// TODO this fails on v6, use v5?
+  const nameResults: Aggregate3Response[] = await multicall.aggregate3.staticCall(nameCalls);
 
-  // // Decode the responses.
-  // const names = nameResults.map(({ success, returnData }, i) => {
-  //   if (!success) throw new Error(`Failed to get name for ${users[i]}`);
-  //   if (returnData === '0x') return users[i]; // If no ENS name, return the address.
-  //   return <string>resolverInterface.decodeFunctionResult('name', returnData)[0];
-  // });
+  // Decode the responses.
+  const names = nameResults.map(({ success, returnData }, i) => {
+    if (!success) throw new Error(`Failed to get name for ${users[i]}`);
+    if (returnData === '0x') return users[i]; // If no ENS name, return the address.
+    return <string>resolverInterface.decodeFunctionResult('name', returnData)[0];
+  });
 
-  // console.log('names:', names);
+  console.log('names:', names);
 }
 
-example2().catch(console.error);
+example1().catch(console.error);

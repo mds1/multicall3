@@ -1,6 +1,16 @@
+/**
+ * @notice viem (https://viem.sh/) has native Multicall3 support which we leverage here. This
+ * example shows how to compute Uniswap V3 pool addresses and look up their token balances. To run
+ * the example:
+ *    - Install dependencies with `pnpm install`
+ *    - Run `pnpm ts-node viem.ts`
+ *
+ * You can replace `pnpm` with the node package manager of your choice.
+ */
 import { createPublicClient, http, parseAbi, formatUnits } from 'viem';
 import { mainnet } from 'viem/chains';
 
+// Setup the client (in ethers.js, this is called a provider).
 const client = createPublicClient({
   chain: mainnet,
   transport: http(process.env.ETH_RPC_URL),
