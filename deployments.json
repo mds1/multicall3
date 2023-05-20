@@ -368,5 +368,23 @@
     "name": "Pulsechain v4 Testnet",
     "chainId": 943,
     "url": "https://scan.v4.testnet.pulsechain.com/address/0xcA11bde05977b3631167028862bE2a173976CA11"
+  },
+  {
+    "name": "Tron",
+    "chainId": 728126428,
+    "url": "https://tronscan.org/#/contract/TEazPvZwDjDtFeJupyo7QunvnrnUjPH8ED/code",
+    "address": "TEazPvZwDjDtFeJupyo7QunvnrnUjPH8ED"
+  },
+  {
+    "name": "zkSync ERA",
+    "chainId": 324,
+    "url": "https://explorer.zksync.io/address/0x47898B2C52C957663aE9AB46922dCec150a2272c#contract",
+    "address": "0x47898B2C52C957663aE9AB46922dCec150a2272c"
+  },
+  {
+    "name": "zkSync ERA Goerli Testnet",
+    "chainId": 280,
+    "url": "https://goerli.explorer.zksync.io/address/0x89e4EDbEC85362a285d7a1D5D255ccD2b8106be2#contract",
+    "address": "0x89e4EDbEC85362a285d7a1D5D255ccD2b8106be2"
   }
 ]
