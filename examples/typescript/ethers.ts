@@ -71,9 +71,6 @@ async function example1() {
   }));
 
   // Execute those calls.
-  // TODO This call fails. It seems to be payload specific though, e.g. if I replace `nameCalls`
-  // with `resolverCalls` it works. See https://github.com/ethers-io/ethers.js/issues/3953.
-  console.log('nameCalls:', nameCalls);
   const nameResults: Aggregate3Response[] = await multicall.aggregate3.staticCall(nameCalls);
 
   // Decode the responses.
@@ -83,7 +80,8 @@ async function example1() {
     return <string>resolverInterface.decodeFunctionResult('name', returnData)[0];
   });
 
-  console.log('names:', names);
+  // Print the mapping of address to ENS names.
+  users.forEach((user, i) => console.log(`${user}: ${names[i]}`));
 }
 
 example1().catch(console.error);

@@ -1,7 +1,7 @@
 {
   "name": "multicall3-typescript-examples",
   "dependencies": {
-    "ethers": "^6.2.3",
+    "ethers": "^6.4.0",
     "viem": "^0.1.26"
   },
   "devDependencies": {
