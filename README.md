@@ -3,7 +3,7 @@
 <h1>Multicall3</h1>
 
 <a href="">![tests](https://github.com/mds1/multicall/actions/workflows/tests.yml/badge.svg)</a>
-<a href="">![coverage](https://img.shields.io/badge/Coverage-100%-Green)</a>
+<a href="">![coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen)</a>
 <a href="">![license](https://img.shields.io/github/license/mds1/multicall)</a>
 
 </div>
