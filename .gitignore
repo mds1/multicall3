@@ -1,6 +1,10 @@
 examples
 out
 cache
+node_modules
+target
+output
+venv
 
 .vscode
 

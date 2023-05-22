@@ -1,243 +1,202 @@
-<img align="right" width="180" height="100" top="100" src="./assets/makerdao.png">
+<div align="center">
 
-# Multicall • [![tests](https://github.com/mds1/multicall/actions/workflows/tests.yml/badge.svg)](https://github.com/mds1/multicall/actions/workflows/tests.yml) ![GitHub](https://img.shields.io/github/license/mds1/multicall)
+<h1>Multicall3</h1>
 
-Multicall aggregates results from multiple contract constant function calls.
+<a href="">![tests](https://github.com/mds1/multicall/actions/workflows/tests.yml/badge.svg)</a>
+<a href="">![coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen)</a>
+<a href="">![license](https://img.shields.io/github/license/mds1/multicall)</a>
 
-This reduces the number of separate JSON RPC requests that need to be sent
-(especially useful if using remote nodes like Infura), while also providing the
-guarantee that all values returned are from the same block (like an atomic read)
-and returning the block number the values are from (giving them important
-context so that results from old blocks can be ignored if they're from an
-out-of-date node).
+</div>
 
-There are three contracts in this repository:
+[`Multicall3`](./src/Multicall3.sol) is deployed on over 70+ chains at `0xcA11bde05977b3631167028862bE2a173976CA11`.
+The full list of deployed chains along with the Multicall3 ABI can be found at https://multicall3.com.
+The ABI is provided in various formats, and can be copied to your clipboard or downloaded to a file.
 
-- [`Multicall`](./src/Multicall.sol): The original contract containing an `aggregate` method to batch calls
-- [`Multicall2`](./src/Multicall2.sol): The same as Multicall, but provides additional functions that allow calls within the batch to fail. Useful for situations where a call may fail depending on the state of the contract.
-- [`Multicall3`](./src/Multicall3.sol): **This is the recommended version**. It's ABI is backwards compatible with Multicall and Multicall2, but it's cheaper to use (so you can fit more calls into a single request), and it adds an `aggregate3` method so you can specify whether calls are allowed to fail on a per-call basis. Additionally, it's deployed on every network at the same address.
+Multicall3 is the primary contract in this repository, and **is recommended for all use cases**[^1].
 
-These contracts can also be used to batch on-chain transactions.
-If using them for this purpose, be aware these contracts are unaudited so use them at your own risk.
-Additionally, **make sure you understand how `msg.sender` works when calling vs. delegatecalling to the Multicall contract, as well as the risks of using `msg.value` in a multicall**.
-To learn more about the latter, see [here](https://github.com/runtimeverification/verified-smart-contracts/wiki/List-of-Security-Vulnerabilities#payable-multicall) and [here](https://samczsun.com/two-rights-might-make-a-wrong/).
+- [Usage](#usage)
+  - [Batch Contract Reads](#batch-contract-reads)
+  - [Batch Contract Writes](#batch-contract-writes)
+- [Deployments and ABI](#deployments-and-abi)
+- [Security](#security)
+- [Development](#development)
+- [Gas Golfing Techniques](#gas-golfing-tricks-and-optimizations)
 
-You can obtain the ABI for the Multicall contracts in the following ways:
+## Usage
 
-- Download the ABI from the [releases](https://github.com/mds1/multicall/releases) page
-- Copy the ABI from [Etherscan](https://etherscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)
-- Install [Foundry](https://github.com/gakonst/foundry/) and run `cast interface 0xcA11bde05977b3631167028862bE2a173976CA11`
-- Copy the human-readable ABI [below](#human-readable-abi) for use with [ethers.js](https://github.com/ethers-io/ethers.js/).
+Multicall3 has two main use cases:
 
-## Deployments
+- Aggregate results from multiple contract reads into a single JSON-RPC request.
+- Execute multiple state-changing calls in a single transaction.
 
-### Multicall3 Contract Addresses
+Because it can be used for both use cases, no methods in this contract are `view`, and all can mutate state and are `payable`.
 
-Multicall3 contains the following improvements over prior multicall contracts:
+### Batch Contract Reads
 
-- Cheaper to use: fit more calls into a single request before hitting the RPC's `eth_call` gas limit.
-- Backwards compatible: it can be dropped in to existing code by simply changing the address.
-- Uses the same, memorable deployment address on the 50+ networks it's deployed to.
+This is the most common use case for executing a multicall.
+This allows a single `eth_call` JSON RPC request to return the results of multiple contract function calls.
+This has many benefits, because it:
 
-| Chain                     | [Chain ID](https://chainlist.org/) | Address                                                                                                                                                          |
-| ------------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet                   | 1                                  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://etherscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                                       |
-| Kovan                     | 42                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://kovan.etherscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                                 |
-| Rinkeby                   | 4                                  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://rinkeby.etherscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                               |
-| Görli                     | 5                                  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://goerli.etherscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                                |
-| Ropsten                   | 3                                  | [0xcA11bde05977b3631167028862bE2a173976CA11](https://ropsten.etherscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                               |
-| Sepolia                   | 11155111                           | [0xcA11bde05977b3631167028862bE2a173976CA11](https://sepolia.etherscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                               |
-| Optimism                  | 10                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://optimistic.etherscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                            |
-| Optimism Kovan            | 69                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://kovan-optimistic.etherscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                      |
-| Optimism Görli            | 420                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://blockscout.com/optimism/goerli/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                |
-| Arbitrum                  | 42161                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://arbiscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                                        |
-| Arbitrum Nova             | 42170                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://nova.arbiscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                                   |
-| Arbitrum Görli            | 421613                             | [0xcA11bde05977b3631167028862bE2a173976CA11](https://goerli-rollup-explorer.arbitrum.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)            |
-| Arbitrum Rinkeby          | 421611                             | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.arbiscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                                |
-| Polygon                   | 137                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://polygonscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                                    |
-| Mumbai                    | 80001                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://mumbai.polygonscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                             |
-| Polygon zkEVM             | 1101                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://zkevm.polygonscan.com/address/0xca11bde05977b3631167028862be2a173976ca11#code)                              |
-| Polygon zkEVM Testnet     | 1442                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet-zkevm.polygonscan.com/address/0xca11bde05977b3631167028862be2a173976ca11#code)                      |
-| Gnosis Chain (xDai)       | 100                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://blockscout.com/xdai/mainnet/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                   |
-| Avalanche                 | 43114                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://snowtrace.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                                       |
-| Avalanche Fuji            | 43113                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.snowtrace.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                               |
-| Fantom Testnet            | 4002                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.ftmscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                                |
-| Fantom Opera              | 250                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://ftmscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                                        |
-| BNB Smart Chain           | 56                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://bscscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                                        |
-| BNB Smart Chain Testnet   | 97                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://testnet.bscscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                                |
-| Moonbeam                  | 1284                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://moonscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                                        |
-| Moonriver                 | 1285                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://moonriver.moonscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                              |
-| Moonbase Alpha Testnet    | 1287                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://moonbase.moonscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                               |
-| Harmony                   | 1666600000                         | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.harmony.one/address/0xcA11bde05977b3631167028862bE2a173976CA11?activeTab=7)                        |
-| Cronos                    | 25                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://cronoscan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                                      |
-| Fuse                      | 122                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.fuse.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                              |
-| Flare Mainnet             | 14                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://flare-explorer.flare.network/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                  |
-| Songbird Canary Network   | 19                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://songbird-explorer.flare.network/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)               |
-| Coston Testnet            | 16                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://coston-explorer.flare.network/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                 |
-| Coston2 Testnet           | 114                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://coston2-explorer.flare.network/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                |
-| Boba                      | 288                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://blockexplorer.boba.network/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                    |
-| Aurora                    | 1313161554                         | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.mainnet.aurora.dev/address/0xcA11bde05977b3631167028862bE2a173976CA11)                             |
-| Astar                     | 592                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://blockscout.com/astar/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                          |
-| OKC                       | 66                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://www.oklink.com/en/okc/address/0xcA11bde05977b3631167028862bE2a173976CA11)                                   |
-| Heco Chain                | 128                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://hecoinfo.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code)                                       |
-| Metis                     | 1088                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://andromeda-explorer.metis.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                   |
-| Metis Goerli              | 599                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://goerli.explorer.metisdevops.link/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs) |
-| RSK                       | 30                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.rsk.co/address/0xcA11bde05977b3631167028862bE2a173976CA11)                                         |
-| RSK Testnet               | 31                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.testnet.rsk.co/address/0xcA11bde05977b3631167028862bE2a173976CA11)                                 |
-| Evmos                     | 9001                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://evm.evmos.org/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                                 |
-| Evmos Testnet             | 9000                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://evm.evmos.dev/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                                 |
-| Thundercore               | 108                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://viewblock.io/thundercore/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=code)                       |
-| Thundercore Testnet       | 18                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer-testnet.thundercore.com/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)              |
-| Oasis                     | 42262                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.emerald.oasis.dev/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                    |
-| Celo                      | 42220                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.celo.org/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                             |
-| Celo Alfajores Testnet    | 44787                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.celo.org/alfajores/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                   |
-| Godwoken                  | 71402                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://v1.gwscan.com/account/0xcA11bde05977b3631167028862bE2a173976CA11)                                           |
-| Godwoken Testnet          | 71401                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://gw-explorer.nervosdao.community/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)               |
-| Klaytn                    | 8217                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://scope.klaytn.com/account/0xcA11bde05977b3631167028862bE2a173976CA11)                                        |
-| Milkomeda                 | 2001                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer-mainnet-cardano-evm.c1.milkomeda.com/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts) |
-| KCC                       | 321                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.kcc.io/en/address/0xcA11bde05977b3631167028862bE2a173976CA11)                                      |
-| Velas                     | 106                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://evmexplorer.velas.com/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                         |
-| Telos                     | 40                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://www.teloscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#contract)                                |
-| Step Network              | 1234                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://stepscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs)                      |
-| Canto                     | 7700                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://evm.explorer.canto.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs)            |
-| Iotex                     | 4689                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://iotexscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#transactions)                               |
-| Bitgert                   | 32520                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://brisescan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                                 |
-| Kava                      | 2222                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.kava.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts)                              |
-| Mantle Testnet            | 5001                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.testnet.mantle.xyz/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs)      |
-| Shardeum Sphinx           | 8082                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.testnet.mantle.xyz/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs)      |
-| Base Testnet              | 84531                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://goerli.basescan.org/address/0xca11bde05977b3631167028862be2a173976ca11#code)                                |
-| DFK Chain Test            | 335                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://subnets-test.avax.network/defi-kingdoms/address/0xcA11bde05977b3631167028862bE2a173976CA11)                 |
-| DFK Chain                 | 53935                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://subnets.avax.network/defi-kingdoms/address/0xcA11bde05977b3631167028862bE2a173976CA11)                      |
-| Neon EVM DevNet           | 245022926                          | [0xcA11bde05977b3631167028862bE2a173976CA11](https://devnet.neonscan.org/address/0xcA11bde05977b3631167028862bE2a173976CA11#contract)                            |
-| Linea Goerli Testnet      | 59140                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.goerli.linea.build/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs)      |
-| Hashbit                   | 11119                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.hashbit.org/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs)             |
-| Syscoin                   | 57                                 | [0xcA11bde05977b3631167028862bE2a173976CA11](https://explorer.syscoin.org/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs)             |
-| Syscoin Tannebaum Testnet | 5700                               | [0xcA11bde05977b3631167028862bE2a173976CA11](https://tanenbaum.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs)                     |
-| Syscoin Tannebaum Rollux  | 57000                              | [0xcA11bde05977b3631167028862bE2a173976CA11](https://rollux.tanenbaum.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs)              |
-| Pulsechain v4 Testnet     | 943                                | [0xcA11bde05977b3631167028862bE2a173976CA11](https://scan.v4.testnet.pulsechain.com/address/0xcA11bde05977b3631167028862bE2a173976CA11)                          |
+- Reduces the number of separate JSON RPC requests that need to be sent, which is especially useful if using remote nodes like Infura. This (1) reduces RPC usage and therefore costs, and (2) reduces the number of round trips between the client and the node, which can significantly improve performance.
+- Guarantees that all values returned are from the same block.
+- Enables block number or timestamp to be returned with the read data, to help detect stale data.
 
-If there is a network Multicall3 is not yet deployed on, please open an issue
-with a link to the block explorer. You can speed up the new deploy by sending
-funds to cover the deploy cost to the deployer account: 0x05f32B3cC3888453ff71B01135B34FF8e41263F2
+Many libraries and tools such as [ethers-rs](https://github.com/gakonst/ethers-rs), [viem](https://viem.sh/), and [ape](https://apeworx.io/) have native Multicall3 integration.
+To learn how to use Multicall3 with these tools, check out this repo's [examples](./examples) and read the documentation for the tool you're using to learn more.
 
-## Historical Deployments
+When directly interacting with the contract to batch calls, the `aggregate3` method is likely what you'll want to use.
+It takes an array of `Call3` structs, and returns an array of `Result` structs:
 
-Multicall3 is the recommended version for most use cases, but deployment addresses for
-Multicall and Multicall2 are retained below for posterity. The Multicall smart contract
-was originally intended to be used with
-[Multicall.js](https://github.com/makerdao/multicall.js)
-in front-end dapps. However, that library has not been updated to work with Multicall2
-and Multicall3, so it will likely only work for the original Multicall contract.
+```solidity
+struct Call3 {
+    // Target contract to call.
+    address target;
+    // If false, the entire call will revert if the call fails.
+    bool allowFailure;
+    // Data to call on the target contract.
+    bytes callData;
+}
 
-### Multicall Contract Addresses
+struct Result {
+    // True if the call succeeded, false otherwise.
+    bool success;
+    // Return data if the call succeeded, or revert data if the call reverted.
+    bytes returnData;
+}
 
-The deployed [Multicall](https://github.com/mds1/multicall/blob/master/src/Multicall.sol) contract can be found in commit [`bb309a9`](https://github.com/mds1/multicall/commit/bb309a985379c40bdbbc9a8613501732ed98bb9c) or earlier. After that commit, the contract was updated to a more recent Solidity version (with minimal improvements), primarily for compatibility with the test suite.
+/// @notice Aggregate calls, ensuring each returns success if required
+/// @param calls An array of Call3 structs
+/// @return returnData An array of Result structs
+function aggregate3(Call3[] calldata calls) public payable returns (Result[] memory returnData);
+```
 
-| Chain    | Address                                                                                                                                              |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet  | [0xeefba1e63905ef1d7acba5a8513c70307c1ce441](https://etherscan.io/address/0xeefba1e63905ef1d7acba5a8513c70307c1ce441#contracts)                      |
-| Kovan    | [0x2cc8688c5f75e365aaeeb4ea8d6a480405a48d2a](https://kovan.etherscan.io/address/0x2cc8688c5f75e365aaeeb4ea8d6a480405a48d2a#contracts)                |
-| Rinkeby  | [0x42ad527de7d4e9d9d011ac45b31d8551f8fe9821](https://rinkeby.etherscan.io/address/0x42ad527de7d4e9d9d011ac45b31d8551f8fe9821#contracts)              |
-| Görli    | [0x77dca2c955b15e9de4dbbcf1246b4b85b651e50e](https://goerli.etherscan.io/address/0x77dca2c955b15e9de4dbbcf1246b4b85b651e50e#contracts)               |
-| Ropsten  | [0x53c43764255c17bd724f74c4ef150724ac50a3ed](https://ropsten.etherscan.io/address/0x53c43764255c17bd724f74c4ef150724ac50a3ed#code)                   |
-| xDai     | [0xb5b692a88bdfc81ca69dcb1d924f59f0413a602a](https://blockscout.com/poa/dai/address/0xb5b692a88bdfc81ca69dcb1d924f59f0413a602a)                      |
-| Polygon  | [0x11ce4B23bD875D7F5C6a31084f55fDe1e9A87507](https://explorer-mainnet.maticvigil.com/address/0x11ce4B23bD875D7F5C6a31084f55fDe1e9A87507/contracts)   |
-| Mumbai   | [0x08411ADd0b5AA8ee47563b146743C13b3556c9Cc](https://explorer-mumbai.maticvigil.com/address/0x08411ADd0b5AA8ee47563b146743C13b3556c9Cc/transactions) |
-| Optimism | [0x187C0F98FEF80E87880Db50241D40551eDd027Bf](https://optimistic.etherscan.io/address/0x187C0F98FEF80E87880Db50241D40551eDd027Bf#code)                |
-| Arbitrum | [0xB064Fe785d8131653eE12f3581F9A55F6D6E1ca3](https://arbiscan.io/address/0xB064Fe785d8131653eE12f3581F9A55F6D6E1ca3#code)                            |
+To obtain the block number or timestamp of the block the calls were executed in with your return data, simply add a call where the `target` is the `Multicall3` contract itself, and the `callData` is the [`getBlockNumber`](./src/Multicall3.sol#L170) or [`getCurrentBlockTimestamp`](./src/Multicall3.sol#L190) method.
 
-### Multicall2 Contract Addresses
+There are a number of other methods to return block properties, including:
 
-The deployed [Multicall2](https://github.com/mds1/multicall/blob/master/src/Multicall2.sol) contract can be found in commit [`bb309a9`](https://github.com/mds1/multicall/commit/bb309a985379c40bdbbc9a8613501732ed98bb9c) or earlier. After that commit, the contract was updated to a more recent Solidity version (with minimal improvements), primarily for compatibility with the test suite.
+- [`getBlockHash`](./src/Multicall3.sol#L165): Returns the block hash for the given block number.
+- [`getBlockNumber`](./src/Multicall3.sol#L170): Returns the current block's number.
+- [`getCurrentBlockCoinbase`](./src/Multicall3.sol#L175): Returns the current block's coinbase.
+- [`getCurrentBlockDifficulty`](./src/Multicall3.sol#L180): Returns the current block's difficulty for Proof-of-Work chains or the latest RANDAO value for Proof-of-Stake chains. See [EIP-4399](https://eips.ethereum.org/EIPS/eip-4399) to learn more about this.
+- [`getCurrentBlockGasLimit`](./src/Multicall3.sol#L185): Returns the current block's gas limit.
+- [`getCurrentBlockTimestamp`](./src/Multicall3.sol#L190): Returns the current block's timestamp.
+- [`getEthBalance`](./src/Multicall3.sol#L195): Returns the ETH (or native token) balance of the given address.
+- [`getLastBlockHash`](./src/Multicall3.sol#L200): Returns the block hash of the previous block.
+- [`getBasefee`](./src/Multicall3.sol#L208): Returns the base fee of the given block. This will revert if the BASEFEE opcode is not supported on the given chain. See [EIP-1599](https://eips.ethereum.org/EIPS/eip-1559) to learn more about this.
+- [`getChainId`](./src/Multicall3.sol#L213): Returns the chain ID.
 
-Multicall2 is the same as Multicall, but provides additional functions that allow calls within the batch to fail. Useful for situations where a call may fail depending on the state of the contract.
+If you need to send less calldata as part of your multicall and can tolerate less granularity of specifying which calls fail, you can check out the other aggregation methods:
 
-| Chain   | Address                                                                                                                                 |
-| ------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet | [0x5ba1e12693dc8f9c48aad8770482f4739beed696](https://etherscan.io/address/0x5ba1e12693dc8f9c48aad8770482f4739beed696#contracts)         |
-| Kovan   | [0x5ba1e12693dc8f9c48aad8770482f4739beed696](https://kovan.etherscan.io/address/0x5ba1e12693dc8f9c48aad8770482f4739beed696#contracts)   |
-| Rinkeby | [0x5ba1e12693dc8f9c48aad8770482f4739beed696](https://rinkeby.etherscan.io/address/0x5ba1e12693dc8f9c48aad8770482f4739beed696#contracts) |
-| Görli   | [0x5ba1e12693dc8f9c48aad8770482f4739beed696](https://goerli.etherscan.io/address/0x5ba1e12693dc8f9c48aad8770482f4739beed696#contracts)  |
-| Ropsten | [0x5ba1e12693dc8f9c48aad8770482f4739beed696](https://ropsten.etherscan.io/address/0x5ba1e12693dc8f9c48aad8770482f4739beed696#code)      |
+- [`aggregate3Value`](./src/Multicall3.sol#L129): Similar to `aggregate3`, but also lets you send values with calls.
+- [`aggregate`](./src/Multicall3.sol#L41): Returns a tuple of `(uint256 blockNumber, bytes[] returnData)` and reverts if any call fails.
+- [`blockAndAggregate`](./src/Multicall3.sol#L91): Similar to `aggregate`, but also returns the block number and block hash.
+- [`tryAggregate`](./src/Multicall3.sol#L60): Takes a `bool` value indicating whether success is required for all calls, and returns a tuple of `(bool success, bytes[] returnData)[]`.
+- [`tryBlockAndAggregate`](./src/Multicall3.sol#L79): Similar to `tryAggregate`, but also returns the block number and block hash.
 
-### Third-Party Deployments
+_Note that the above tuples are represented as structs in the code, but are shown above as tuples for brevity._
 
-The following addresses have been submitted by external contributors and have not been vetted by Multicall maintainers.
+### Batch Contract Writes
 
-| Chain       | Address                                                                                                                          |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| RSK Mainnet | [0x6c62bf5440de2cb157205b15c424bceb5c3368f5](https://explorer.rsk.co/address/0x6c62bf5440de2cb157205b15c424bceb5c3368f5)         |
-| RSK Testnet | [0x9e469e1fc7fb4c5d17897b68eaf1afc9df39f103](https://explorer.testnet.rsk.co/address/0x9e469e1fc7fb4c5d17897b68eaf1afc9df39f103) |
-| BSC Mainnet | [0x41263cba59eb80dc200f3e2544eda4ed6a90e76c](https://bscscan.com/address/0x41263cba59eb80dc200f3e2544eda4ed6a90e76c)             |
-| BSC Testnet | [0xae11C5B5f29A6a25e955F0CB8ddCc416f522AF5C](https://testnet.bscscan.com/address/0xae11c5b5f29a6a25e955f0cb8ddcc416f522af5c)     |
+_If using Multicall3 for this purpose, be aware it is unaudited, so use at your own risk._
+_However, because it is a stateless contract, it should be safe when used correctly—**it should never hold your funds after a transaction ends, and you should never approve Multicall3 to spend your tokens**_.
+
+Multicall3 can also be used to batch on-chain transactions using the methods described in the [Batch Contract Reads](#batch-contract-reads) section.
+
+When using Multicall3 for this purpose, there are **two important details you MUST understand**.
+
+1. How `msg.sender` behaves when calling vs. delegatecalling to a contract.
+2. The risks of using `msg.value` in a multicall.
+
+Before explaining both of these, let's first cover some background on how the Ethereum Virtual Machine (EVM) works.
+
+There are two types of accounts in Ethereum: Externally Owned Accounts (EOAs) and Contract Accounts.
+EOAs are controlled by private keys, and Contract Accounts are controlled by code.
+
+When an EOA calls a contract, the `msg.sender` value during execution of the call provides the address of that EOA. This is also true if the call was executed by a contract.
+The word "call" here specifically refers to the [`CALL`](https://www.evm.codes/#f1?fork=shanghai) opcode.
+Whenever a CALL is executed, the _context_ changes.
+New context means storage operations will be performed on the called contract, there is a new value (i.e. `msg.value`), and a new caller (i.e. `msg.sender`).
+
+The EVM also supports the [`DELEGATECALL`](https://www.evm.codes/#f4) opcode, which is similar to `CALL`, but different in a very important way: it _does not_ change the context of the call.
+This means the contract being delegatecalled will see the same `msg.sender`, the same `msg.value`, and operate on the same storage as the calling contract. This is very powerful, but can also be dangerous.
+
+It's important to note that you cannot delegatecall from an EOA—an EOA can only call a contract, not delegatecall it.
+
+Now that we understand the difference between `CALL` and `DELEGATECALL`, let's see how this applies to `msg.sender` and `msg.value` concerns.
+We know that we can either `CALL` or `DELEGATECALL` to a contract, and that `msg.sender` will be different depending on which opcode we use.
+
+Because you cannot delegatecall from an EOA, this significantly reduces the benefit of calling Multicall3 from an EOA—any calls the Multicall3 executes will have the MultiCall3 address as the `msg.sender`.
+**This means you should only call Multicall3 from a contract if the `msg.sender` does not matter.**
+
+If you are using a contract wallet or executing a call to Multicall3 from another contract, you can either CALL or DELEGATECALL.
+Calls will behave the same as described above for the EOA case, and delegatecalls will preserve the context.
+This means if you delegatecall to Multicall3 from a contract, the `msg.sender` of the calls executed by Multicall3 will be that contract.
+This can be very useful, and is how the Gnosis Safe [Transaction Builder](https://help.safe.global/en/articles/40841-transaction-builder) works to batch calls from a Safe.
+
+Similarly, because `msg.value` does not change with a delegatecall, you must be careful relying on `msg.value` within a multicall.
+To learn more about this, see [here](https://github.com/runtimeverification/verified-smart-contracts/wiki/List-of-Security-Vulnerabilities#payable-multicall) and [here](https://samczsun.com/two-rights-might-make-a-wrong/).
+
+## Deployments and ABI
+
+Multicall3 is deployed on over 70 chains at `0xcA11bde05977b3631167028862bE2a173976CA11`[^2].
+A sortable, searchable list of all chains it's deployed on can be found at https://multicall3.com/deployments.
+To request a Multicall3 deployment to a new chain, please [open an issue](https://github.com/mds1/multicall/issues/new?assignees=mds1&labels=Deployment+Request&projects=&template=deployment_request.yml).
+You can speed up the new deploy by sending funds to cover the deploy cost to the deployer account: `0x05f32B3cC3888453ff71B01135B34FF8e41263F2`
+
+The ABI can be found on https://multicall3.com/abi, where it can be downloaded or copied to the clipboard in various formats, including:
+
+- Solidity interface.
+- JSON ABI, prettified.
+- JSON ABI, minified.
+- ethers.js human readable ABI.
+- viem human readable ABI.
+
+Alternatively, you can:
+
+- Download the ABI from the [releases](https://github.com/mds1/multicall/releases) page.
+- Copy the ABI from [Etherscan](https://etherscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code).
+- Install [Foundry](https://github.com/gakonst/foundry/) and run `cast interface 0xcA11bde05977b3631167028862bE2a173976CA11`.
+
+## Security
+
+**This contract is unaudited.**
+
+For on-chain transactions:
+
+- Ensure it never holds your funds after a transaction ends. If it does hold funds, anyone can steal them.
+- Never approve Multicall3 to spend your tokens. If you do, anyone can steal your tokens.
+- Be sure you understand CALL vs. DELEGATECALL behavior depending on your use case. See the [Batch Contract Writes](#batch-contract-writes) section for more details.
+
+For off-chain reads the worst case scenario is you get back incorrect data, but this should not occur for properly formatted calls.
 
 ## Development
 
 This repo uses [Foundry](https://github.com/gakonst/foundry) for development and testing
 and git submodules for dependency management.
 
-Clone the repo and run `forge install` to install dependencies and `forge test` to run tests.
+Clone the repo and run `forge test` to run tests.
+Forge will automatically install any missing dependencies.
 
-### Foundry Setup
+## Gas Golfing Tricks and Optimizations
 
-If you don't have Foundry installed, run the command below to get `foundryup`, the Foundry toolchain installer:
+Below is a list of some of the optimizations used by Multicall3's `aggregate3` and `aggregate3Value` methods[^3]:
 
-```sh
-curl -L https://foundry.paradigm.xyz | bash
-```
-
-Then, in a new terminal session or after reloading your `PATH`, run `foundryup` to get the latest `forge` and `cast` binaries.
-
-To learn more about Foundry:
-
-- Visit the [repo](https://github.com/gakonst/foundry)
-- Check out the Foundry [book](https://onbjerg.github.io/foundry-book/)
-- Learn advanced ways to use `foundryup` in the [foundryup package](https://github.com/gakonst/foundry/tree/master/foundryup)
-- Check out the [awesome-foundry](https://github.com/crisgarner/awesome-foundry) repo
-
-### Gas Golfing Tricks and Optimizations
-
-Below is a list of some of the optimizations used by Multicall3's `aggregate3` and `aggregate3Value` methods:
-
-- In for loops, array length is cached to avoid reading the length on each loop iteration
-- In for loops, the counter is incremented within an `unchecked` block
-- In for loops, the counter is incremented with the prefix increment (`++i`) instead of a postfix increment (`i++`)
-- All revert strings fit within a single 32 byte slot
-- Function parameters use `calldata` instead of `memory`
-- Instead of requiring `call.allowFailure || result.success`, we use assembly's `or()` instruction to [avoid](https://twitter.com/transmissions11/status/1501645922266091524) a `JUMPI` and `iszero()` since it's cheaper to evaluate both conditions
-- Methods are given a `payable` modifier which removes a check that `msg.value == 0` when calling a method
-- Calldata and memory pointers are used to cache values so they are not read multiple times within a loop
-- No block data (e.g. block number, hash, or timestamp) is returned by default, and is instead left up to the caller
-- The value accumulator in `aggregate3Value` is within an `unchecked` block
+- In `for` loops, array length is cached to avoid reading the length on each loop iteration.
+- In `for` loops, the counter is incremented within an `unchecked` block.
+- In `for` loops, the counter is incremented with the prefix increment (`++i`) instead of a postfix increment (`i++`).
+- All revert strings fit within a single 32 byte slot.
+- Function parameters use `calldata` instead of `memory`.
+- Instead of requiring `call.allowFailure || result.success`, we use assembly's `or()` instruction to [avoid](https://twitter.com/transmissions11/status/1501645922266091524) a `JUMPI` and `iszero()` since it's cheaper to evaluate both conditions.
+- Methods are given a `payable` modifier which removes a check that `msg.value == 0` when calling a method.
+- Calldata and memory pointers are used to cache values so they are not read multiple times within a loop.
+- No block data (e.g. block number, hash, or timestamp) is returned by default, and is instead left up to the caller.
+- The value accumulator in `aggregate3Value` is within an `unchecked` block.
 
 Read more about Solidity gas optimization tips:
 
 - [Generic writeup about common gas optimizations, etc.](https://gist.github.com/hrkrshnn/ee8fabd532058307229d65dcd5836ddc) by [Harikrishnan Mulackal](https://twitter.com/_hrkrshnn)
 - [Yul (and Some Solidity) Optimizations and Tricks](https://hackmd.io/@gn56kcRBQc6mOi7LCgbv1g/rJez8O8st) by [ControlCplusControlV](https://twitter.com/controlcthenv)
 
-## Human-Readable ABI
-
-Below is the human-readable ABI.
-This can be directly passed into an ethers.js `Contract` or `Interface` constructor.
-
-```typescript
-const MULTICALL_ABI = [
-  // https://github.com/mds1/multicall
-  'function aggregate(tuple(address target, bytes callData)[] calls) payable returns (uint256 blockNumber, bytes[] returnData)',
-  'function aggregate3(tuple(address target, bool allowFailure, bytes callData)[] calls) payable returns (tuple(bool success, bytes returnData)[] returnData)',
-  'function aggregate3Value(tuple(address target, bool allowFailure, uint256 value, bytes callData)[] calls) payable returns (tuple(bool success, bytes returnData)[] returnData)',
-  'function blockAndAggregate(tuple(address target, bytes callData)[] calls) payable returns (uint256 blockNumber, bytes32 blockHash, tuple(bool success, bytes returnData)[] returnData)',
-  'function getBasefee() view returns (uint256 basefee)',
-  'function getBlockHash(uint256 blockNumber) view returns (bytes32 blockHash)',
-  'function getBlockNumber() view returns (uint256 blockNumber)',
-  'function getChainId() view returns (uint256 chainid)',
-  'function getCurrentBlockCoinbase() view returns (address coinbase)',
-  'function getCurrentBlockDifficulty() view returns (uint256 difficulty)',
-  'function getCurrentBlockGasLimit() view returns (uint256 gaslimit)',
-  'function getCurrentBlockTimestamp() view returns (uint256 timestamp)',
-  'function getEthBalance(address addr) view returns (uint256 balance)',
-  'function getLastBlockHash() view returns (bytes32 blockHash)',
-  'function tryAggregate(bool requireSuccess, tuple(address target, bytes callData)[] calls) payable returns (tuple(bool success, bytes returnData)[] returnData)',
-  'function tryBlockAndAggregate(bool requireSuccess, tuple(address target, bytes callData)[] calls) payable returns (uint256 blockNumber, bytes32 blockHash, tuple(bool success, bytes returnData)[] returnData)',
-];
-```
+[^1]: [`Multicall`](./src/Multicall.sol) is the original contract, and [`Multicall2`](./src/Multicall2.sol) added support for handling failed calls in a multicall. [`Multicall3`](./src/Multicall3.sol) is recommended over these because it's backwards-compatible with both, cheaper to use, adds new methods, and is deployed on more chains. You can read more about the original contracts and their deployments in the [makerdao/multicall](https://github.com/makerdao/multicall) repo.
+[^2]: There are a few unofficial deployments at other addresses for chains that compute addresses differently, which can also be found at
+[^3]: Some of these tricks are outdated with newer Solidity versions and via-ir. Be sure to benchmark your code before assuming the changes are guaranteed to reduce gas usage.
