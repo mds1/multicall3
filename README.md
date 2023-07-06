@@ -126,7 +126,7 @@ Now that we understand the difference between `CALL` and `DELEGATECALL`, let's s
 We know that we can either `CALL` or `DELEGATECALL` to a contract, and that `msg.sender` will be different depending on which opcode we use.
 
 Because you cannot delegatecall from an EOA, this significantly reduces the benefit of calling Multicall3 from an EOA—any calls the Multicall3 executes will have the MultiCall3 address as the `msg.sender`.
-**This means you should only call Multicall3 from a contract if the `msg.sender` does not matter.**
+**This means you should only call Multicall3 from an EOA if the `msg.sender` does not matter.**
 
 If you are using a contract wallet or executing a call to Multicall3 from another contract, you can either CALL or DELEGATECALL.
 Calls will behave the same as described above for the EOA case, and delegatecalls will preserve the context.
