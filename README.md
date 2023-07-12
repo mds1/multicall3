@@ -138,7 +138,7 @@ To learn more about this, see [here](https://github.com/runtimeverification/veri
 
 ## Deployments and ABI
 
-Multicall3 is deployed on over 70 chains at `0xcA11bde05977b3631167028862bE2a173976CA11`[^2].
+Multicall3 is deployed on over 100 chains at `0xcA11bde05977b3631167028862bE2a173976CA11`[^2].
 A sortable, searchable list of all chains it's deployed on can be found at https://multicall3.com/deployments.
 To request a Multicall3 deployment to a new chain, please [open an issue](https://github.com/mds1/multicall/issues/new?assignees=mds1&labels=Deployment+Request&projects=&template=deployment_request.yml).
 You can speed up the new deploy by sending funds to cover the deploy cost to the deployer account: `0x05f32B3cC3888453ff71B01135B34FF8e41263F2`
