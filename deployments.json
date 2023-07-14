@@ -340,6 +340,11 @@
     "url": "https://goerli.basescan.org/address/0xca11bde05977b3631167028862be2a173976ca11#code"
   },
   {
+    "name": "Base",
+    "chainId": 8453,
+    "url": "https://basescan.org/address/0xca11bde05977b3631167028862be2a173976ca11#code"
+  },
+  {
     "name": "DFK Chain Test",
     "chainId": 335,
     "url": "https://subnets-test.avax.network/defi-kingdoms/address/0xcA11bde05977b3631167028862bE2a173976CA11"
