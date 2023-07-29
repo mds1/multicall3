@@ -4,6 +4,10 @@ labels: ['Deployment Request']
 assignees:
   - mds1
 body:
+  - type: markdown
+    attributes:
+      value: Before opening a deployment request, consider deploying Multicall3 yourself! See the [README](https://github.com/mds1/multicall#new-deployments) for more information on how to do this.
+
   - type: input
     id: chain-name
     attributes:
