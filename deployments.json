@@ -761,5 +761,11 @@
     "chainId": 280,
     "url": "https://goerli.explorer.zksync.io/address/0xF9cda624FBC7e059355ce98a31693d299FACd963#contract",
     "address": "0xF9cda624FBC7e059355ce98a31693d299FACd963"
+  },
+  {
+    "name": "zkSync Era Sepolia Testnet",
+    "chainId": 300,
+    "url": "https://sepolia.explorer.zksync.io/address/0xF9cda624FBC7e059355ce98a31693d299FACd963#contract",
+    "address": "0xF9cda624FBC7e059355ce98a31693d299FACd963"
   }
 ]
