@@ -745,6 +745,11 @@
     "url": "https://explorer.zetachain.com/address/0xca11bde05977b3631167028862be2a173976ca11"
   },
   {
+    "name": "X1 Testnet",
+    "chainId": 195,
+    "url": "https://www.oklink.com/x1-test/address/0xca11bde05977b3631167028862be2a173976ca11/contract"
+  },
+  {
     "name": "Tron",
     "chainId": 728126428,
     "url": "https://tronscan.org/#/contract/TEazPvZwDjDtFeJupyo7QunvnrnUjPH8ED/code",
