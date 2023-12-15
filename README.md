@@ -210,10 +210,11 @@ To verify the code on a block explorer, use the following parameters:
 
 **This contract is unaudited.**
 
-For on-chain transactions:
+For on-chain transactions using Multicall3, or for contracts inheriting from Multicall3:
 
-- Ensure it never holds your funds after a transaction ends. If it does hold funds, anyone can steal them.
-- Never approve Multicall3 to spend your tokens. If you do, anyone can steal your tokens.
+- **Ensure it NEVER holds funds after a transaction ends**. Any ETH, tokens, or other funds held by this contract can be stolen. There are bots that monitor for this and they will immediately steal any funds they find.
+- Never approve Multicall3 to spend your tokens. If you do, anyone can steal your tokens. There are likely bots that monitor for this as well.
+- It is not recommended to inherit from this contract if your contract will hold funds. But if you must, be sure you know what you're doing and protect all state changing methods with an `onlyOwner` modifier or similar so funds cannot be stolen.
 - Be sure you understand CALL vs. DELEGATECALL behavior depending on your use case. See the [Batch Contract Writes](#batch-contract-writes) section for more details.
 
 For off-chain reads the worst case scenario is you get back incorrect data, but this should not occur for properly formatted calls.
