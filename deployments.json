@@ -750,6 +750,11 @@
     "url": "https://www.oklink.com/x1-test/address/0xca11bde05977b3631167028862be2a173976ca11/contract"
   },
   {
+    "name": "Lumiterra Layer3",
+    "chainId": 94168,
+    "url": "https://scan.layerlumi.com/address/0xcA11bde05977b3631167028862bE2a173976CA11"
+  },
+  {
     "name": "Tron",
     "chainId": 728126428,
     "url": "https://tronscan.org/#/contract/TEazPvZwDjDtFeJupyo7QunvnrnUjPH8ED/code",
