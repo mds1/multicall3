@@ -889,6 +889,12 @@
     "address": "0xF9cda624FBC7e059355ce98a31693d299FACd963"
   },
   {
+    "name": "PlayFi Albireo Testnet",
+    "chainId": 1612127,
+    "url": "https://albireo-explorer.playfi.ai/address/0xF9cda624FBC7e059355ce98a31693d299FACd963#contract",
+    "address": "0xF9cda624FBC7e059355ce98a31693d299FACd963"
+  },
+  {
     "name": "XDC Apothem Testnet",
     "chainId": 51,
     "url": "https://apothem.xdcscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11"
