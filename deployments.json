@@ -1082,6 +1082,7 @@
   {
     "name": "Lisk",
     "chainId": 1135,
-    "url": "https://blockscout.lisk.com/address/0xA9d71E1dd7ca26F26e656E66d6AA81ed7f745bf0"
+    "url": "https://blockscout.lisk.com/address/0xA9d71E1dd7ca26F26e656E66d6AA81ed7f745bf0",
+    "address": "0xA9d71E1dd7ca26F26e656E66d6AA81ed7f745bf0"
   }
 ]
