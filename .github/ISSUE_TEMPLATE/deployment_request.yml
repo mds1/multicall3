@@ -48,7 +48,7 @@ body:
     id: deployment-funds
     attributes:
       label: Deployment Funds
-      description: Have you sent deployment funds to the deployer account (0x05f32B3cC3888453ff71B01135B34FF8e41263F2)? Doing so is greatly appreciated and will reduce time to deployment!
+      description: Have you sent deployment funds to the deployer preparation account (0x1E91557322053858cf75cFE5b2d030D27cb2cA8D)? Doing so is greatly appreciated and will reduce time to deployment!
       options:
         - 'Yes'
         - 'No'
