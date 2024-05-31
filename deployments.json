@@ -665,6 +665,11 @@
     "url": "https://app.roninchain.com/address/ronin:ca11bde05977b3631167028862be2a173976ca11"
   },
   {
+    "name": "Qitmeer Testnet",
+    "chainId": 8131,
+    "url": "https://testnet-qng.qitmeer.io/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=contract"
+  },
+  {
     "name": "Qitmeer QNG Mainnet",
     "chainId": 813,
     "url": "https://qng.meerscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs"
