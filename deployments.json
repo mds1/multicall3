@@ -1128,5 +1128,10 @@
     "name": "Aura Mainnet",
     "chainId": 6322,
     "url": "https://aurascan.io/evm-contracts/0xca11bde05977b3631167028862be2a173976ca11"
+  },
+  {
+    "name": "Superposition Testnet",
+    "chainId": 98985,
+    "url": "https://testnet-explorer.superposition.so/address/0xcA11bde05977b3631167028862bE2a173976CA11"
   }
 ]
