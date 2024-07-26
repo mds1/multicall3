@@ -220,6 +220,16 @@
     "url": "https://cronos.org/explorer/testnet3/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts#address-tabs"
   },
   {
+    "name": "Reya Cronos",
+    "chainId": 89346162,
+    "url": "https://reya-cronos.blockscout.com/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=contract"
+  },
+  {
+    "name": "Reya Network",
+    "chainId": 1729,
+    "url": "https://explorer.reya.network/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=contract"
+  },
+  {
     "name": "Fuse",
     "chainId": 122,
     "url": "https://explorer.fuse.io/address/0xcA11bde05977b3631167028862bE2a173976CA11/contracts"
@@ -1138,5 +1148,30 @@
     "name": "X Layer Mainnet",
     "chainId": 196,
     "url": "https://www.okx.com/web3/explorer/xlayer/address/0xcA11bde05977b3631167028862bE2a173976CA11"
+  },
+  {
+    "name": "Nahmii 3 Mainnet",
+    "chainId": 4061,
+    "url": "https://explorer.nahmii.io/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=contract"
+  },
+  {
+    "name": "Nahmii 3 Testnet",
+    "chainId": 4062,
+    "url": "https://explorer.testnet.nahmii.io/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=contract"
+  },
+  {
+    "name": "Plume Testnet",
+    "chainId": 161221135,
+    "url": "https://testnet-explorer.plumenetwork.xyz/address/0xca11bde05977b3631167028862be2a173976ca11?tab=contract"
+  },
+  {
+    "name": "Algen L1",
+    "chainId": 8911,
+    "url": "https://scan.algen.network/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=contract"
+  },
+  {
+    "name": "Bitlayer Mainnet",
+    "chainId": 200901,
+    "url": "https://www.btrscan.com/address/0xca11bde05977b3631167028862be2a173976ca11?tab=Contract"
   }
 ]
