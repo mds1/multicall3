@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.12;
+pragma solidity 0.8.25;
 
 import {Test} from "forge-std/Test.sol";
 import {Multicall3} from "../Multicall3.sol";
@@ -173,7 +173,7 @@ contract Multicall3Test is Test {
   }
 
   function testGetCurrentBlockDifficulty() public {
-    assertEq(block.difficulty, multicall.getCurrentBlockDifficulty());
+    assertEq(block.prevrandao, multicall.getCurrentBlockDifficulty());
   }
 
   function testGetCurrentBlockGasLimit() public {

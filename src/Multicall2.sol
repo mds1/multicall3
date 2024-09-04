@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.12;
+pragma solidity 0.8.25;
 
 /// @title Multicall2 - Aggregate results from multiple read-only function calls
 /// @author Michael Elliot <mike@makerdao.com>
@@ -62,7 +62,7 @@ contract Multicall2 {
     }
 
     function getCurrentBlockDifficulty() public view returns (uint256 difficulty) {
-        difficulty = block.difficulty;
+        difficulty = block.prevrandao;
     }
 
     function getCurrentBlockGasLimit() public view returns (uint256 gaslimit) {

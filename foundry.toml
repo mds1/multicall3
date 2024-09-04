@@ -6,7 +6,7 @@
 [profile.default]
 # Sets the concrete solc version to use
 # This overrides the `auto_detect_solc` value
-solc = "0.8.12"
+solc = "0.8.25"
 auto_detect_solc = false
 # Increase optimizer_runs since we expect multicalls to be highly queried
 optimizer = true

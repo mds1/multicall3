@@ -216,7 +216,7 @@ cast publish $TX --rpc-url $RPC_URL
 To verify the code on a block explorer, use the following parameters:
 
 - Paste in the code from [Multicall3.sol](./src/Multicall3.sol)
-- Select solidity 0.8.12
+- Select solidity 0.8.25
 - Optimizer enabled with 10000000 runs
 - No constructor arguments
 

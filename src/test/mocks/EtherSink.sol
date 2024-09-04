@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.12;
+pragma solidity 0.8.25;
 
 /// @title EtherSink
 /// @notice Receives Ether, that's about it \( o_o )/
