@@ -168,12 +168,6 @@ Alternatively, you can:
 
 ### New Deployments
 
-> [!IMPORTANT]
-> New deployment requests will not be fulfilled until around mid to end July.
-> To minimize waiting time until deployment during that time, consider using the
-> pre-signed transaction method described in this README. Please read that section
-> CAREFULLY before using it to ensure it will work on your chain and not burn the nonce!
-
 There are two ways to get Multicall3 deployed to a chain:
 
 1. Deploy it yourself using a pre-signed transaction. Details on how to do this are in the below paragraph.
