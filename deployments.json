@@ -1191,6 +1191,11 @@
     "url": "https://testnet-explorer.plumenetwork.xyz/address/0xca11bde05977b3631167028862be2a173976ca11?tab=contract"
   },
   {
+    "name": "Plume Testnet v2",
+    "chainId": 98864,
+    "url": "https://test-explorer.plumenetwork.xyz/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=contract"
+  },
+  {
     "name": "Algen L1",
     "chainId": 8911,
     "url": "https://scan.algen.network/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=contract"
@@ -1290,5 +1295,20 @@
     "name": "Superposition",
     "chainId": 55244,
     "url": "https://explorer.superposition.so/address/0xcA11bde05977b3631167028862bE2a173976CA11"
+  },
+  {
+    "name": "Starchain Testnet",
+    "chainId": 1570,
+    "url": "https://devnet.starchainscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11"
+  },
+  {
+    "name": "Starchain Mainnet",
+    "chainId": 1578,
+    "url": "https://starchainscan.io/address/0xca11bde05977b3631167028862be2a173976ca11"
+  },
+  {
+    "name": "ApeChain Mainnet",
+    "chainId": 33139,
+    "url": "https://apescan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11#code"
   }
 ]
