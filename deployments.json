@@ -1096,6 +1096,11 @@
     "url": "https://testnet.cyberscan.co/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=contract"
   },
   {
+    "name": "Unit Zero Mainnet",
+    "chainId": 88811,
+    "url": "https://explorer.unit0.dev/address/0xcA11bde05977b3631167028862bE2a173976CA11"
+  },
+  {
     "name": "Unit Zero Stagenet",
     "chainId": 88819,
     "url": "https://explorer-stagenet.unit0.dev/address/0xcA11bde05977b3631167028862bE2a173976CA11"
