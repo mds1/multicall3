@@ -37,9 +37,8 @@ interface IMulticall2 {
     function getLastBlockHash() external view returns (bytes32 blockHash);
 
     function tryAggregate(bool requireSuccess, Call[] calldata calls) external returns (Result[] memory returnData);
-    
+
     function tryBlockAndAggregate(bool requireSuccess, Call[] calldata calls)
         external
         returns (uint256 blockNumber, bytes32 blockHash, Result[] memory returnData);
 }
-

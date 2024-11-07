@@ -9,9 +9,7 @@ interface IMulticall {
         bytes callData;
     }
 
-    function aggregate(Call[] calldata calls)
-        external
-        returns (uint256 blockNumber, bytes[] memory returnData);
+    function aggregate(Call[] calldata calls) external returns (uint256 blockNumber, bytes[] memory returnData);
 
     function getBlockHash(uint256 blockNumber) external view returns (bytes32 blockHash);
 
@@ -24,6 +22,6 @@ interface IMulticall {
     function getCurrentBlockTimestamp() external view returns (uint256 timestamp);
 
     function getEthBalance(address addr) external view returns (uint256 balance);
-    
+
     function getLastBlockHash() external view returns (bytes32 blockHash);
 }
