@@ -8,13 +8,21 @@
 
 </div>
 
-> [!IMPORTANT]
-> New deployment requests will not be fulfilled until around mid to end July.
-> To minimize waiting time until deployment during that time, consider using the
-> pre-signed transaction method described in this README. Please read that section
-> CAREFULLY before using it to ensure it will work on your chain and not burn the nonce!
+> [!CAUTION]
+> The Multicall3 deployer private key was mined with Profanity and has been compromised.
+> The attacker(s) with the key typically steal funds from the deployer account, and there is one
+> instance of a custom contract being deployed to the Multicall3 address on Ancient8
+> ([1](https://scan.ancient8.gg/address/0xcA11bde05977b3631167028862bE2a173976CA11),
+> [2](https://github.com/mds1/multicall/issues/336)).
+>
+> As a result, no new manual deployments will be made by the deployer.
+> New deployments can still occur, see [New Deployments](#new-deployments) for more information.
+>
+> All existing deployments of Multicall3 are safe, and new deployments using the approaches in the
+> [New Deployments](#new-deployments) section will continue to be safe. Only the Ancient8 deployment
+> is known to be incorrect.
 
-[`Multicall3`](./src/Multicall3.sol) is deployed on over 70+ chains at `0xcA11bde05977b3631167028862bE2a173976CA11`.
+[`Multicall3`](./src/Multicall3.sol) is deployed on over 250 chains at `0xcA11bde05977b3631167028862bE2a173976CA11`.
 The full list of deployed chains along with the Multicall3 ABI can be found at https://multicall3.com.
 The ABI is provided in various formats, and can be copied to your clipboard or downloaded to a file.
 
@@ -171,9 +179,7 @@ Alternatively, you can:
 There are two ways to get Multicall3 deployed to a chain:
 
 1. Deploy it yourself using a pre-signed transaction. Details on how to do this are in the below paragraph.
-2. Request deployment by [opening an issue](https://github.com/mds1/multicall/issues/new?assignees=mds1&labels=Deployment+Request&projects=&template=deployment_request.yml).
-   You can significantly reduce the time to deployment by sending funds to cover the deploy cost to the deployer preparation account: `0x1E91557322053858cf75cFE5b2d030D27cb2cA8D`.
-   This account is not the deployer, but is used to hold funds until deployment time. This reduces the risk of using the funds in the deployer account for other purposes to prevent accidentally burning the nonce.
+2. Place Multicall3 as a predeploy on your chain. If you are a fork of the OP Stack, Multicall3 is a [preinstall](https://specs.optimism.io/protocol/preinstalls.html) and will be present on all new chains, so deployment is not necessary.
 
 > [!WARNING]
 > Before using the signed transaction, you **MUST** make sure the chain's gas metering is equivalent to the EVM's.
