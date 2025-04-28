@@ -1396,5 +1396,10 @@
     "name": "Monad Testnet",
     "chainId": 10143,
     "url": "https://testnet.monadexplorer.com/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=Contract"
+  },
+  {
+    "name": "Yominet",
+    "chainId": 428962654539583,
+    "url": "https://scan.initia.xyz/yominet-1/evm-contracts/0xDF3CaD101A25eeF0bCB86dc6D8205681E3ffEFf2"
   }
 ]
