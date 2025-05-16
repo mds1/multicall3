@@ -1446,5 +1446,10 @@
     "name": "PlatON Mainnet",
     "chainId": 210425,
     "url": "https://scan.platon.network/contract-detail?address=0xca11bde05977b3631167028862be2a173976ca11"
+  },
+  {
+    "name": "PlatON Dev Testnet2",
+    "chainId": 2206132,
+    "url": "https://devnet2scan.platon.network/contract-detail?address=0xca11bde05977b3631167028862be2a173976ca11"
   }
 ]
