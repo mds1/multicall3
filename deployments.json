@@ -1536,5 +1536,55 @@
     "name": "Katana Mainnet",
     "chainId": 747474,
     "url": "https://katanascan.com/address/0xcA11bde05977b3631167028862bE2a173976CA11#code"
+  },
+  {
+    "name": "Gate Layer",
+    "chainId": 10088,
+    "url": "https://www.gatescan.org/gatelayer/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=contract"
+  },
+  {
+    "name": "Mezo",
+    "chainId": 31612,
+    "url": "https://explorer.mezo.org/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=contract"
+  },
+  {
+    "name": "Camp Network Mainnet",
+    "chainId": 484,
+    "url": "https://camp.cloud.blockscout.com/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=contract"
+  },
+  {
+    "name": "Mint Mainnet",
+    "chainId": 185,
+    "url": "https://explorer.mintchain.io/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=contract"
+  },
+  {
+    "name": "Tac Mainnet",
+    "chainId": 239,
+    "url": "https://explorer.tac.build/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=contract"
+  },
+  {
+    "name": "Monad Mainnet",
+    "chainId": 143,
+    "url": "https://monadvision.com/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=Contract"
+  },
+  {
+    "name": "Mantra Mainnet",
+    "chainId": 5888,
+    "url": "https://mantrascan.io/mainnet/address/0xca11bde05977b3631167028862be2a173976ca11"
+  },
+  {
+    "name": "Cross Mainnet",
+    "chainId": 612055,
+    "url": "https://www.crossscan.io/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=contract"
+  },
+  {
+    "name": "Doma Mainnet",
+    "chainId": 97477,
+    "url": "https://explorer.doma.xyz/address/0xcA11bde05977b3631167028862bE2a173976CA11?tab=contract"
+  },
+  {
+    "name": "Stable Mainnet",
+    "chainId": 988,
+    "url": "https://stablescan.xyz/address/0xca11bde05977b3631167028862be2a173976ca11#code"
   }
 ]
