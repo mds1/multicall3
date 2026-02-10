@@ -1199,7 +1199,7 @@
   {
     "name": "Conflux Espace",
     "chainId": 1030,
-    "url": "https://evm.confluxscan.net/address/0xca11bde05977b3631167028862be2a173976ca11?tab=contract-viewer"
+    "url": "https://evm.confluxscan.org/address/0xca11bde05977b3631167028862be2a173976ca11?tab=contract-viewer"
   },
   {
     "name": "BEVM Testnet",
