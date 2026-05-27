@@ -1581,5 +1581,10 @@
     "name": "Stable Mainnet",
     "chainId": 988,
     "url": "https://stablescan.xyz/address/0xca11bde05977b3631167028862be2a173976ca11#code"
+  },
+  {
+    "name": "PlatON Dev Testnet",
+    "chainId": 20250407,
+    "url": "https://devnet3scan.platon.network/contract-detail?address=0xca11bde05977b3631167028862be2a173976ca11"
   }
 ]
